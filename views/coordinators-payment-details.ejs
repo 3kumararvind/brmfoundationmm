@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Coordinators Payment Details</title>
+  </head>
+  <body>
+    <%- include admin-dashboard-menu.ejs -%>
+  	<%- include particle-background.ejs -%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10" id="coordinators-payment-detail-div">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h5 class="text-center text-white">Coordinators Payment Details</h5>
+              </div>
+            </div>
+            <div class="card-body">
+              <form class="" id="coordinatorsPaymentForm" action="" method="post">
+                <div class="row form-group">
+                    <div class="col-lg-2">
+                      <p class="text-center">From Date <span class="mandatory">*</span></p>
+                    </div>
+                    <div class="col-lg-2">
+                      <input class="form-control" type="date" name="fromDate" id="fromDate" value="" required>
+                    </div>
+                    <div class="col-lg-2">
+                      <p class="text-center">To Date <span class="mandatory">*</span></p>
+                    </div>
+                    <div class="col-lg-2">
+                      <input class="form-control" type="date" name="toDate" id="toDate" value="" required>
+                    </div>
+                    <div class="col-lg-2">
+                      <p class="text-center">Coordinator <span class="mandatory">*</span></p>
+                    </div>
+                    <div class="col-lg-2">
+                      <select class="form-control" name="coordinatorddl" id="coordinatorddl" required>
+                        <option value="">--Coordinators--</option>
+                      <%  coordinatorList.forEach(function(coordinator){ %>
+                          <option value="<%= coordinator.coordinator_id %>"><%= coordinator.coordinatorName %></option>
+                      <%  }) %>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                  <div class="col text-center">
+                    <button type="button" class="btn btn-success " name="coordinators-payment-search-btn" id="coordinators-payment-search-btn">Search Payment</button>
+                  </div>
+                </div>
+                <div class="errMsgDiv">
+                  <h6 class="text-center text-danger errMsgTxt"></h6>
+                </div>
+                <div class="loading-page-img-div">
+                  <img class="animated-gif" src="/images/loading-page.gif"  alt="Unable to load image">
+                </div>
+                <div class="row" id="coordinatorsPaymentDetailList">
+                  <div class="col">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm" id="studListTbl">
+                        <thead>
+                          <tr>
+                            <th class="text-center">S.N.</th>
+                            <th class="text-center">Coordinator Payment ID </th>
+                            <th>Payment Mode</th>
+                            <th>Reference Number</th>
+                            <th>Payment Date</th>
+                            <th class="text-center">Students Reg No</th>
+                            <th class="text-center">Amount</th>
+                          </tr>
+                        </thead>
+                          <tbody id="tbody">
+                        </tbody>
+                      </table>
+                      <p class="text-right" id="totalAmount"> <strong></strong> </p>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>

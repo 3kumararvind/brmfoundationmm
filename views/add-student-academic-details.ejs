@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <link rel="stylesheet" href="/css/dashboard.css">
+      <%- include lib.ejs -%>
+    <title>Student Academic Details</title>
+  </head>
+  <body>
+      <%- include student-dashboard-menu.ejs -%>
+      <% include particle-background.ejs %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-md-8 col-sm-10 " id="update-academic-div">
+            <div class="card border-info">
+              <div class="card-header bg-info">
+                <div class="card-title">
+                  <h5 class="text-center text-white">Students Academic Details</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                <% if(successMessage.length==1){ %>
+                <%  successMessage.forEach(function(msg){ %>
+                  <div class="alert alert-success">
+                    <h5 class="text-center"><%= msg %></h5>
+                  </div>
+                <% }) %>
+                  <% } %>
+
+                  <% if(errorMessage.length==1){ %>
+                  <%  errorMessage.forEach(function(msg){ %>
+                    <div class="alert alert-danger">
+                      <h5 class="text-center"><%= msg %></h5>
+                    </div>
+                  <% }) %>
+                    <% } %>
+
+
+                  <form id="regForm" action="/add-student-academic-details" method="post" >
+                    <!-- One "tab" for each step in the form: -->
+
+
+                    <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Class/Stream <span class="mandatory">*</span></strong></label>
+                      <div class="col-sm-9">
+                        <%=academicClassList.length %> <br>
+                        <% key = Object.keys(academicClassList) %>
+                        <% value = Object.values(academicClassList) %>
+                        <div class="form-group">
+                          <select class="form-control" name="studentclass" required>
+                            <option value="" selected>---Select Class---</option>
+                            <% for(i=0; i<key.length; i++){ %>
+                          <%  if(studentAcademicExist){ %>
+                                <% if(studentAcademicExist.class==key[i]){ %>
+                                   <option value="<%= key[i] %>" selected><%= value[i] %></option>
+                                <% }else{ %>
+                                  <option value="<%= key[i] %>"><%= value[i] %></option>
+                                <% }%>
+                            <%  }else{ %>
+                                  <option value="<%= key[i] %>"><%= value[i] %></option>
+                            <%  } %>
+                          <%  } %>
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="dob" class="col-sm-3 col-form-label"><strong>Date of birth(MM-DD-YYYY) <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-9">
+                          <div class="form-group">
+                            <% if(studentAcademicExist){ %>
+                              <% var date = studentAcademicExist.dob.getDate() %>
+                              <% var month = studentAcademicExist.dob.getMonth() + 1 %>
+                              <% var year = studentAcademicExist.dob.getFullYear() %>
+                              <% if(date < 10 ){ %>
+                              <% var stringDate = '0' + date %>
+                              <%  }else{var stringDate = date} %>
+                              <% if(month < 10 ){ %>
+                                <% var stringMonth = '0' + month %>
+                              <%  }else{var stringMonth = month} %>
+                              <% var dob = year +'-'+ stringMonth + '-' + stringDate %>
+                          <%  } %>
+
+                            <input class="form-control" id="dobfield" type="date"  name="studentdob" value= "<%= dob %>" required >
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="gender" class="col-sm-3 col-form-label"><strong>Gender <span class="mandatory">*</span></strong></label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                        <%  if(studentAcademicExist){ %>
+                          <%  if(studentAcademicExist.gender=="MALE"){ %>
+                              <input type="radio" name="gender" value="MALE" checked>  Male
+                              <input type="radio" name="gender" value="FEMALE">  Female
+                          <%  }else{ %>
+                              <input type="radio" name="gender" value="MALE">  Male
+                              <input type="radio" name="gender" value="FEMALE" checked>  Female
+                          <% } %>
+                          <% }else{ %>
+                            <input type="radio" name="gender" value="MALE">  Male
+                            <input type="radio" name="gender" value="FEMALE">  Female
+                        <%  } %>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="organisationname" class="col-sm-3 col-form-label"><strong>Organisation Name <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-9">
+                          <div class="form-group">
+                            <select name="organisationId" class="form-control" required>
+                                <option value=""> --- Select Organisation Name --- </option>
+                                      <% organisationList.forEach(function(organisation){ %>
+                                      <%  if(studentAcademicExist){ %>
+                                          <%  if(studentAcademicExist.organisation_id === organisation.organisation_id){ %>
+                                            <option value="<%=  organisation.organisation_id %>" selected> <%= organisation.organisation_name + ', ' + organisation.organisation_address %> </option>
+                                          <%  }else{ %>
+                                            <option value="<%=  organisation.organisation_id %>"><%= organisation.organisation_name + ', ' + organisation.organisation_address %></option>
+                                        <%  } %> %>
+                                    <%  }else{ %>
+                                      <option value="<%=  organisation.organisation_id %>"><%= organisation.organisation_name + ', ' + organisation.organisation_address %></option>
+                                    <% } %>
+                                    <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                          <button type="submit" class="btn btn-success btn-block" style="margin-bottom:10px;" name="add-academic-details-submit-btn">Save</button>
+                        </div>
+                        <div class="col-6">
+                          <button type="reset" class="btn btn-danger btn-block" name="add-academic-details-reset-btn">Reset</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

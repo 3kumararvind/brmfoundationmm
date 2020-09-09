@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <%- include lib.ejs -%>
+    <title>Make Payment</title>
+  </head>
+  <body>
+    <%- include student-dashboard-menu.ejs -%>
+    <%- include particle-background.ejs -%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 col-md-8" id="make-payment-div">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                  <h5 class="text-white text-center">Payment</h5>
+              </div>
+            </div>
+            <div class="card-body">
+              <% if(successMessage.length==1){ %>
+              <%  successMessage.forEach(function(msg){ %>
+                <div class="alert alert-success">
+                  <h5 class="text-center"><%= msg %></h5>
+                </div>
+              <% }) %>
+              <% } %>
+
+                <% if(errorMessage.length==1){ %>
+                  <%  errorMessage.forEach(function(msg){ %>
+                    <div class="alert alert-danger">
+                      <h5 class="text-center"><%= msg %></h5>
+                    </div>
+                  <% }) %>
+                <% } %>
+                <form action="/make-payment" id="paymentDetailsfrm" method="post">
+
+                    <p id="PaymentNoteDivHead"> <strong>Important Note:</strong> </p>
+
+                  <div class="row text-danger" id="PaymentNoteDiv">
+                    <div class="PaymentNoteDivContent">
+                      <ol>
+                        <strong> <li>Before proceeding to payment check your event registration details.</li> </strong>
+                        <strong> <i><li style="background-color: #FFFF00"> Once the payment is processed you will not be able to change event registration. </li> </i> </strong>
+                        <strong> <li> Make your payment with any of the specified payment method. </li> </strong>
+                        <strong> <li> To get more discount on participation fee, participate in more events. </li> </strong>
+                        <strong> <li style="background-color: #FFFF00">Interschool Carnival Tshirt is available for students. You can opt it if you wish. Additional &#x20B9; 150 will be applicable for Tshirt. </li> </strong>
+                      </ol>
+                    </div>
+
+                  </div>
+                  <div class="form-group row">
+                      <label for="totalAmount" class="col-sm-3 col-form-label" ><strong>Total Registration Fee (&#x20B9; ): </strong> </label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="totalAmount" id="totalAmount" value= <%= totalAmount %> readonly >
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="discountAmount" class="col-sm-3 col-form-label" ><strong>Discount Amount (&#x20B9; ): </strong> </label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="discountAmount" value= <%= discountedAmount %> readonly >
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="netPayableAmount" class="col-sm-3 col-form-label" ><strong>Net Payable Amount  (&#x20B9; ): </strong> </label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="netPayableAmount" id="netPayableAmount" value= <%= netPayableAmount %> readonly >
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="carnivalTshirt" class="col-sm-3 col-form-label" ><strong>Carnival Tshirt(Optional): </strong> </label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <input type="radio" id="carnival_tshirt_yes_btn" name="carnival_tshirt_radio" value="Y" > Yes
+                          <input type="radio" id="carnival_tshirt_no_btn" name="carnival_tshirt_radio" value="N" checked > NO
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row carnivalTshirtSizediv">
+                      <label for="carnivalTshirtSize" class="col-sm-3 col-form-label" ><strong>Carnival Tshirt Size: </strong> </label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <input type="radio" id="carnival_tshirt_small_size_btn" name="carnival_tshirt_size_radio" value="S" > Small
+                          <input type="radio" id="carnival_tshirt_medium_size_btn" name="carnival_tshirt_size_radio" value="M" checked > Medium
+                          <input type="radio" id="carnival_tshirt_medium_size_btn" name="carnival_tshirt_size_radio" value="L"  > Large
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="paymentMode" class="col-sm-3 col-form-label" ><strong>Payment Mode</strong><span class="text-danger"><strong>*</strong></span></label>
+                      <div class="col-sm-9">
+                        <div class="form-group">
+                          <select class="form-control" name="paymentMode" id="paymentMode" required>
+                              <option value="">--- Select Payment Mode ---</option>
+                              <option value="Cash">Cash</option>
+                              <option value="Google Pay">Google Pay</option>
+                              <option value="Phone Pe">Phone Pe</option>
+
+                         </select>
+                        </div>
+                      </div>
+                </div>
+                    <div class="Google-Pay barcode-div">
+                      <img class="img-thumbnail" src="/images/payment-mode-qr-codes/arvind_google_pay_qr_code.jpg" alt="Unable to load Google Pay QR Code">
+                    </div>
+                    <div class="Phone-Pe barcode-div">
+                      <img class="img-thumbnail" src="/images/payment-mode-qr-codes/arvind_phone_pe_qr_code.jpg" alt="Unable to load Phone Pe QR Code">
+                    </div>
+
+                    <div class="form-group row upi-Ref-div">
+                        <label for="UPIRefNumber" class="col-sm-3 col-form-label" ><strong>UPI/UTR Reference Number <span class="mandatory">*</span></strong> </p></label>
+                        <div class="col-sm-9">
+                          <div class="form-group">
+                            <input type="text" class="form-control" name="UPIRefNumber" value="" placeholder="Enter UPI/UTR reference number" maxlength="12" >
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                          <button type="submit" class="btn btn-success btn-block" style="margin-bottom:10px;" name="make-payment-submit-btn" >Pay Now</button>
+                      </div>
+                      <div class="col-sm-6">
+                          <button type="reset" class="btn btn-danger btn-block" style="margin-bottom:10px;" name="make-payment-reset-btn">Reset</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  </body>
+</html>

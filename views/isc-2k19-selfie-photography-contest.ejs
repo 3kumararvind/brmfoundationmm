@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <meta property="og:title" content="Participate in Best selfie/Photography contest of Interschool Carnival and win Rs 01 Lakh. Hurry up!!!">
+    <meta property="og:image" content="https://isc2k19-brmfoundation.herokuapp.com/images/events/isc-2K19/selfie-contest/interschool-carnival-2k19.jpg">
+    <title>Best Selfie/Photography Contest</title>
+  </head>
+  <body>
+    <%- include menu.ejs -%>
+    <% include particle-background.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-danger">
+            <h1 class="text-center text-danger">Interschool 2K19 Best Selfie/Photography Contest </h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <img src="/images/events/isc-2K19/selfie-contest/best-selfie-photography-contest-1.jpg" alt="unable to load image">
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <img src="/images/events/isc-2K19/selfie-contest/best-selfie-photography-contest-2.jpg" alt="unable to load image">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-primary">
+            <h1 class="text-center text-danger">Rules and regulations </h1>
+          </div>
+          <div class="hash-tag-text bg-dark text-white" >
+            <strong>
+            <p class="myHashTag">I am participating in Best Selfie/Photography Contest of ISC 2K19. Please like, comment and share my photo and support me to win. You can also win &#8377; 01 Lakh by participating. To participate click on the link: https://isc2k19-brmfoundation.herokuapp.com/isc-2k19-selfie-photography-contest</p>
+            <p class="myHashTag">#BestSelfiePhotographyContest2K19</p>
+            <p class="myHashTag">#InterschoolCarnival2K19</p>
+            <p class="myHashTag">#BabuRamMahtoFoundation</p>
+            <p class="myHashTag">#PrizeMoney:Rs01Lakh</p>
+            <p class="myHashTag">#VenueApexPublicSchool</p> </strong>
+            <!-- The button used to copy the text -->
+            <button class="btn btn-warning btn-sm" onclick="copyToClipboard('.myHashTag')">Copy text</button>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <ul>
+                <li>Upload any selfie/photograph and share in any social media(Facebook, LinkedIn, Instagram, twitter) with the above mentioned # tag.</li>
+                <li>For evaluation #tags are mandatory.</li>
+                <li>Participants need to share only one image. Sharing multiple image by same participants will leads to disqualify.</li>
+                <li> <strong>Participants are strictly prohibited to comment on their own photo as a reply. If any participants found doing so, will be eliminated.</strong></li>
+                <li class="text-danger"> <strong><span style="background-color:yellow;">Using of any third party application for increasing comments/likes will lead to automatic elimination as this competition is monitored by application. </strong> </li>
+                <li> <strong>Maximum Prize Money: &#8377; 1000/-*.</strong> </li>
+                <li><strong>Your prize money will be calculated as follows:Prize Money = ( &#8377; 1*Like + &#8377; 2*Comments + &#8377; 10*share)</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row social-share-div">
+            <div class="col-md-3">
+              <!-- facebook -->
+
+                  <img src="/images/social-share/share-facebook.png" class="img-responsive"  alt="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+'https%3A%2F%2Fisc2k19-brmfoundation.herokuapp.com%2Fisc-2k19-selfie-photography-contest','facebook-share-dialog','width=626,height=436'); return false;">
+            </div>
+            <div class="col-md-3">
+              <!-- twitter -->
+              <img src="/images/social-share/share-twitter.png" class="img-responsive"  alt="Share on Twitter" onclick="javascript:window.open('https://twitter.com/share?text=[participate in Best selfie/Photography contest of Interschool Carnival and win Rs 01 Lakh]&amp;url=https%3A%2F%2Fisc2k19-brmfoundation.herokuapp.com%2Fisc-2k19-selfie-photography-contest','Twitter-dialog','width=626,height=436'); return false;">
+
+            </div>
+            <div class="col-md-3">
+              <a href="https://api.whatsapp.com/send?text=Hi, I have participated in *Best Selfie/Photography contest* in *Interschool Carnival 2K19*. *You can participate and win Rs 01 Lakh*. Click on the link to participate *https%3A%2F%2Fisc2k19-brmfoundation.herokuapp.com%2Fisc-2k19-selfie-photography-contest*" target="_blank"><img src="/images/social-share/share-whatsapp.png" class="img-responsive" ></a>
+            </div>
+
+          </div>
+          <div class="text-center">
+              <a class="btn btn-danger btn-lg" href="/interschool-carnival">Click here to win &#8377; 01 Lakh</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+    function copyToClipboard(element) {
+          var $temp = $("<input>");
+          $("body").append($temp);
+          $temp.val($(element).text()).select();
+          document.execCommand("copy");
+          $temp.remove();
+          alert("#tag Text copied")
+        }
+
+    </script>
+    <%- include footer.ejs -%>
+  </body>
+</html>

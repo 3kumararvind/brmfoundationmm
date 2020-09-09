@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content=" 'Interschool Carnival (ISC)' is one of the largest annual state level competition fest of Jharkhand organized by Babu Ram Mahto Foundation, Marang Marcha. Scholarship of amount ₹ 1,00,000/- is distributed among the rank holders of different events. 30+ events are organized in three categories Junior group (up to class 5), Senior group (class 6 to class 9) and super senior group (class 10 & Above). " />
+    <meta name="keywords" content="Interschool Carnival, Interschool Carnival 2K19, ISC, ISC 2K19, BRM Foundation interschool carnival, interschool carnival prize money, interschool groups, interschool carnival important dates, interschool carnival apply, interschool carnival application form" />
+    <meta property="og:url" content="https://isc2k19-brmfoundation.herokuapp.com/interschool-carnival" />
+     <meta property="og:type" content="website" />
+     <meta property="og:title" content="Interschool Carnival 2K19 | The Mega Competition Fest Of Jharkhand" />
+     <meta property="og:description" content="'Interschool Carnival (ISC)' is one of the largest annual state level competition fest of Jharkhand organized by Babu Ram Mahto Foundation, Marang Marcha. Scholarship of amount ₹ 1,00,000/- is distributed among the rank holders of different events. 30+ events are organized in three categories Junior group (up to class 5), Senior group (class 6 to class 9) and super senior group (class 10 & Above)." />
+     <meta property="og:image" content="https://isc2k19-brmfoundation.herokuapp.com/images/events/isc-2K19/interschool-carnival-2k19.jpg"/>
+     <link rel="stylesheet" href="/css/time-counter.css">
+    <%- include lib.ejs -%>
+    <title>Interschool Carnival 2K19</title>
+  </head>
+  <body>
+    <%- include menu.ejs -%>
+  	<% include particle-background.ejs %>
+
+    <div class="container-fluid">
+      <section id="ISC-details">
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-info">
+              <h1 class="text-center">INTERSCHOOL CARNIVAL 2K19</h1>
+            </div>
+            <div class="event-description ">
+              <p>  <strong>“Interschool Carnival (ISC)”</strong> is one of the largest annual <strong> state level</strong> competition fest of Jharkhand organized by <strong>Babu Ram Mahto Foundation, Marang Marcha</strong> in association with Apex Public School, Marang Marcha and Birsa Social Academy, Gola. The event fest is organized every year by the foundation for the students of <strong>Non-government and government organizations.</strong> After grand success of three edition of the fest, the foundation is bringing the <strong>fourth edition this year.</strong>  The students of <strong>class Pre-Primary & above</strong> are eligible to take part in this mega event. The foundation is providing a big platform since last three years where more than <strong>3000+ students</strong> from different schools, colleges and coaching centers are competing with each other in <strong>30+ academic and co-curricular events</strong> to grab the prestigious awards and scholarships provided by the foundation. <strong> Scholarship of amount &#8377; 1,00,000/- </strong> is distributed among the rank holders of different events. The event is last for 03 days. Different prizes and awards are there for the overall champion student and schools. </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    <section class="event-details-div">
+      <div class="row">
+        <div class="col">
+          <div class="event-title-text">
+            <h1 class="alert alert-info text-center">Events</h1>
+          </div>
+        </div>
+
+      </div>
+      <div class="row " id="eventsGroupWise">
+        <div class="col-lg-4 col-md-4 d-flex">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h3 class="text-center text-white">Junior Group</h3>
+                  <h6 class="text-center text-white">(Up to Class 05)</h6>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul>
+                <% juniorGroupEventList.forEach(function(eventName){ %>
+                   <li><%= eventName %> </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 d-flex">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h3 class="text-center text-white">Senior Group</h3>
+                <h6 class="text-center text-white">(Class 06 to Class 09)</h6>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul>
+                <% seniorGroupEventList.forEach(function(eventName){ %>
+                  <li><%= eventName %> </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 d-flex">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h3 class="text-center text-white">Super Senior Group</h3>
+                  <h6 class="text-center text-white">(Class 10 & Above)</h6>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul>
+                <% superSeniorGroupEventList.forEach(function(eventName){ %>
+                   <li><%= eventName %> </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="selfie-hyperlink-div text-center">
+        <a class="btn btn-danger btn-lg" href="/isc-2k19-selfie-photography-contest" target="_blank">Click here to participate in Selfie/Photography contest. </a>
+      </div>
+    </section>
+    <section class="prize-div">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-info">
+            <h1 class="text-center">ISC 2K19 : PRIZES </h1>
+          </div>
+        </div>
+      </div>
+      <h1 class="text-center">For Students</h1>
+      <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+          <div class="card prize-card">
+            <div class="card-header prize-card-header-background text-center">
+              <div class="card-title">
+                <h2>First Prize</h2>
+              </div>
+            </div>
+            <div class="card-body first-prize-background  text-center">
+              <h3>&#x20B9; 400</h3>
+              <h3>+</h3>
+              <h3>Certificate</h3>
+              <h3>+</h3>
+              <h3>Trophy</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+          <div class="card prize-card">
+            <div class="card-header prize-card-header-background text-center">
+              <div class="card-title">
+                <h2>Second Prize</h2>
+              </div>
+            </div>
+            <div class="card-body second-prize-background text-center">
+              <h3>&#x20B9; 300</h3>
+              <h3>+</h3>
+              <h3>Certificate</h3>
+              <h3>+</h3>
+              <h3>Trophy</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+          <div class="card prize-card">
+            <div class="card-header prize-card-header-background text-center">
+              <div class="card-title">
+                <h2>Third Prize</h2>
+              </div>
+            </div>
+            <div class="card-body third-prize-background text-center">
+              <h3>&#x20B9; 200</h3>
+              <h3>+</h3>
+              <h3>Certificate</h3>
+              <h3>+</h3>
+              <h3>Trophy</h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <h1 class="text-center"> For Organisation/Overall Awards</h1>
+      <br>
+      <div class="row">
+          <div class="col-lg4 col-md-4 col-sm-6">
+            <div class="card prize-card">
+              <div class="card-header prize-card-header-background-2">
+                <div class="card-title text-center">
+                  <h2>ISC 2K19 Best Performer</h2>
+                </div>
+              </div>
+              <div class="card-body">
+                <p><strong>Interschool Carnival(ISC) Best Performer  </strong>award is awarded to the participants whose performace is overall outstanding and wins maximum awards in the competition. Winner is awarded with trophy. </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg4 col-md-4 col-sm-6">
+            <div class="card prize-card">
+              <div class="card-header prize-card-header-background-2">
+                <div class="card-title text-center">
+                  <h2>Maximum Participation Award</h2>
+                </div>
+              </div>
+              <div class="card-body">
+                <p> <strong>Maximum participation award </strong> is awarded to the school from where the maximum number of students participate in Interschool Carnival. Winner school is awarded with "Trophy".  </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg4 col-md-4 col-sm-6">
+            <div class="card prize-card">
+              <div class="card-header prize-card-header-background-2">
+                <div class="card-title text-center">
+                  <h2>Overall Champion Award</h2>
+                </div>
+              </div>
+              <div class="card-body">
+                <p>This award is awarded to the <strong>Overall Top 3 Best Performer School </strong>(including all group). Top 3 performing schools are awarded trophy. </p>
+                <br>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+    <section class="important-dates-section">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-info">
+            <h1 class="text-center">ISC 2K19 : IMPORTANT DATES </h1>
+          </div>
+          <div class="important-dates-body">
+            <ul>
+              <li><strong>Online Registration Commencement : 20 October 2019</strong></li>
+              <li><strong>Last Date Of Registration: 20 December 2019</strong></li>
+              <li><strong>Last Date Of Payment Verification (By Coordinator): 20 December 2019</strong></li>
+              <li><strong> Interschool Carnival 2K19 : 22 December 2019 - 24 December 2019 </strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="counterTimer">
+    <div class="row">
+      <div class="col">
+        <div id="countdown">
+          <div id='tiles'></div>
+            <div class="labels">
+              <li>Days</li>
+              <li>Hours</li>
+              <li>Mins</li>
+              <li>Secs</li>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="registration-fee-section">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-info">
+            <h1 class="text-center">ISC 2K19 : REGISTRATION FEE </h1>
+          </div>
+          <div class="registration-fee-section-body">
+            <p> <strong> Events Registration Fee Details: </strong></p>
+            <ul >
+              <li><strong>01 Event: &#x20B9; 100/- </strong></li>
+              <li><strong>02 Events: &#x20B9; 150/- </strong></li>
+              <li><strong>03 Events: &#x20B9; 200/- </strong></li>
+              <li><strong>All Events: &#x20B9; 350/- </strong></li>
+              <li> <strong>Interschool Carnival Tshirt (Optional): &#x20B9; 150</strong> </li>
+              <li> <h2 class="text-danger">Participants will get 125% cashback on registration fee(Coupon card will be provided). </h2> </li>
+            </ul>
+            <marquee direction="left" > <strong> <span style="color:red;" > <h4> ***Accomodation facility is available for the participants and faculties who are from distance more than 15 Km from venue. To avail facility participants/faculties can contact organiser. Additional charges will be applicable for this. *** </h4> </span></strong> </marquee>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="important-information-section">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-info">
+            <h1 class="text-center">ISC 2K19 : IMPORTANT INFORMATION </h1>
+          </div>
+          <div class="important-information-body">
+            <ul>
+              <li>Participants registration is mandatory. No students will be allowed to participate in any event(s) without registration.</li>
+              <li>Students need to apply only online. No offline registration is allowed/available.</li>
+              <li>For group events such as Dance Competition, Badminton Doubles, Rangoli etc., Only one students need to register. <strong>During Registration don't forget to mention team members name. Team members name must be filled in case of group events.</strong> </li>
+              <li>Students participating in more than 3 events, need to select the events in which you want to participate.Supoose you want to participate in 7 events, you need to select all those seven events from the list.</li>
+              <li class="bg-warning"> <strong>If the name of your organisation is not present in application form, contact technical support team to add your organisation name. Without organisation name don't proceed further.</strong> </li>
+              <li> <strong>Take the print out of Admit card after the final approval of organising team. Without admit card entrance will not be allowed.</strong> </li>
+              <li>All participants must have required materials for their respective events such as cycle, rackets, chart paper, colors etc.</li>
+              <li>All students/student coordinators/coordinators should have organisation ID card. If not, any government identification card is mandatory to get entrance.</li>
+              <li class="text-danger"><strong>Note: If total number of participants in any event is less than 10,  the respective event will be cancelled. The respective students can participate on any other event or registration fee will be refunded back.</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sponsors-section ">
+      <div class="alert alert-info">
+        <h1 class="text-center">ISC 2K19 : SPONSORS </h1>
+      </div>
+      <div id="sponsor-details" class="alert alert-warning">
+        <%- include isc-2k19-sponsors.ejs -%>
+      </div>
+    </section>
+
+    <section class="helpline-section ">
+      <div class="alert alert-info">
+        <h1 class="text-center">ISC 2K19 : HELPLINES </h1>
+      </div>
+      <div id="helpline-details" >
+        <ul>
+          <li><strong>Technical Query:</strong> +91-9608396398, +91-9835726336, +91-8340649274</li>
+          <li><strong>Events Query:</strong> +91-8340649274, +91-6203791634, +91-8789252717 </li>
+          <li><strong>Accomodation Query:</strong> +91-9110061436 </li>
+        </ul>
+      </div>
+    </section>
+
+
+      <div class="apply-btn">
+        <a href ="/login" class="btn btn-success btn-lg btn-block "> Click here to apply </button> </a>
+      </div>
+
+
+    </div>
+    &nbsp;
+    <script type="text/javascript" src="/js/time-counter.js">
+
+    </script>
+    <%- include footer.ejs -%>
+  </body>
+</html>

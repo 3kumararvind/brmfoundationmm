@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Approve Payment By Organiser</title>
+  </head>
+  <body>
+    <%- include admin-dashboard-menu.ejs -%>
+    <% include particle-background.ejs %>
+    <div class="container-fluid ">
+      <div class="row ">
+        <div class="col-lg-10 " id="org-pay-approve-div">
+          <div class="card border-info ">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h5 class="text-center text-white">Approve Payment (Coordinator/Student)</h5>
+              </div>
+            </div>
+            <div class="card-body">
+              <form id="OrgPayApproveForm" method="post">
+                <div class="row form-group ">
+                  <div class="col-lg-3">
+                    <p class="text-center">Student Payment Mode</p>
+                  </div>
+                  <div class="col-lg-3" >
+                    <select class="form-control" name="paymentMode" id="studCoordpaymentMode">
+                      <option value="CASH">CASH</option>
+                      <option value="GOOGLE PAY">GOOGLE PAY</option>
+                      <!--<option value="PAYTM">PAYTM</option> -->
+                      <option value="PHONE PE">PHONE PE</option>
+
+                    </select>
+                  </div>
+                  <div class="col-lg-3">
+                    <p class="text-center">Coordinator</p>
+                  </div>
+                  <div class="col-lg-3">
+                    <select class="form-control" name="coordinatorddl" id="coordinatorddl">
+                      <option value="-1">SELF</option>
+                    <%  coordinatorList.forEach(function(coordinator){ %>
+                        <option value="<%= coordinator.coordinator_id %>"><%= coordinator.coordinatorName %></option>
+                    <%  }) %>
+                    </select>
+                  </div>
+              </div>
+                <div class="row form-group">
+                    <div class="col-lg-2">
+                      <p class="text-center">From Date <span class="mandatory">*</span></p>
+                    </div>
+                    <div class="col-lg-3">
+                      <input class="form-control" type="date" name="fromDate" id="fromDate" value="" required>
+                    </div>
+                    <div class="col-lg-2">
+                      <p class="text-center">To Date <span class="mandatory">*</span></p>
+                    </div>
+                    <div class="col-lg-3">
+                      <input class="form-control" type="date" name="toDate" id="toDate" value="" required>
+                    </div>
+                    <div class="col-lg-2 text-center">
+                        <button type="button" class="btn btn-success form-control" name="search-btn" id="search-btn">Search</button>
+                    </div>
+                </div>
+                <div class="errMsgDiv">
+                  <h6 class="text-center text-danger errMsgTxt"></h6>
+                </div>
+                <div class="loading-page-img-div">
+                  <img class="animated-gif" src="/images/loading-page.gif"  alt="Unable to load image">
+                </div>
+                <div class="row" id="studListWithPayDetails">
+                  <div class="col">
+                      <div class="row">
+                          <div class="col text-right">
+                            <input type="checkbox" name="chekAll" id="checkAll" value=""> Select All Students
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="table-responsive">
+                            <table class="table table-bordered " id="studListTbl">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">S.N.</th>
+                                  <th class="text-center">Student Reg. No.</th>
+                                  <th>Student Name</th>
+                                  <th class="text-center">Student Payment ID</th>
+                                  <th>UPI Ref Number</th>
+                                  <th class="text-center">Student Reg Fee</th>
+                                  <th class="text-center">Action</th>
+                                </tr>
+                              </thead>
+                                <tbody id="tbody">
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-center">
+                          <button type="submit" class="btn btn-success" name="verify-button" id="verify-button">Verify Payment</button>
+                        </div>
+                      </div>
+                </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

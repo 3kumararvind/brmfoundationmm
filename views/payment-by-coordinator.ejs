@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <%- include lib.ejs -%>
+    <title>Coordinator | Make Payment</title>
+
+  </head>
+  <body>
+    <%- include coordinator-dashboard-menu.ejs -%>
+  	<%- include particle-background.ejs -%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-1 col-md-2 col-sm-1"></div>
+        <div class="col-lg-10 col-md-8 col-sm-10 " id="coordinator-stud-detail-div">
+          <div class="card border-primary">
+            <div class="card-header bg-info text-white">
+                <h5 class="card-title text-center" >Make Payment </h5>
+            </div>
+            <div class="card-body">
+
+              <p class="text-danger"> <strong>Note: To Proceed the payment of pending students click on <input type="checkbox" checked> checkoxes of respective students. </strong> </p>
+            <!--  <div class="form-group row">
+                  <label for="filterStudentList" class="col-sm-3 col-form-label" ><strong> Filter List By: </strong> </label>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <select class="form-control" name="filterStudentList" id="filterStudentList">
+                        <option value="ALL" selected>All</option>
+                        <option value="PENDING WITH COORDINATOR">PENDING WITH COORDINATOR</option>
+                        <option value="PENDING WITH ORGANISER FOR VERIFICATION">PENDING WITH ORGANISER FOR VERIFICATION</option>
+                        <option value="PENDING WITH STUDENT">PENDING WITH STUDENT</option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+            -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="studentDetailTable" >
+                       <thead>
+                          <tr>
+                            <th class="align-middle"> S.N. </th>
+                            <th class="align-middle"> Reg No. </th>
+                            <th class="align-middle" >Student Name</th>
+                            <th class="align-middle">Class</th>
+                            <th class="align-middle">Organisation</th>
+                            <th class="align-middle">Payment Mode</th>
+                            <th class="align-middle">Registration Fee</th>
+                            <th class="align-middle" >Registration Fee Status</th>
+                            <th class="align-middle">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% let i=0; %>
+                            <% studentList.forEach(function(student){ %>
+                              <tr>
+                              <%  if(student.paymentMode=="CASH" && student.regFeeCurrentStatus == "PENDING WITH COORDINATOR"){ %>
+                                <% i++ %>
+                                <td class="align-middle text-center"><%= i %></td>
+                                <td class="align-middle text-center" id="regNo"><%= student.registrationNo %></td>
+                                <td class="align-middle" ><%= student.name %></td>
+                                <td class="align-middle"><%= student.studentClass %></td>
+                                <td class="align-middle"><%= student.organistion %></td>
+                                <td class="align-middle"><%= student.paymentMode %> </td>
+                                <td class="align-middle text-center"> <%= student.registrationFee %> </td>
+                                <td class="align-middle" id="PENDING WITH STUDENT" ><%= student.regFeeCurrentStatus %></td>
+                                  <td class="text-center"> <input type="checkbox" name="paymentCheck"> </td>
+                              <%  } %>
+
+
+                              </tr>
+                          <%  }) %>
+                        </tbody>
+                    </table>
+                </div>
+              <!--  <p class="text-danger text-center"> <strong><%=errMsg %></strong> </p> -->
+            </div>
+          </div>
+      </div>
+      <div class="col-lg-1 col-md-2 col-sm-1"></div>
+    </div>
+
+    <div class="row" id="payment-option-div">
+      <div class="col-lg-5 col-md-5 coordinator-payment-detail-div ">
+        <div class="card border-success">
+          <div class="card-header bg-success">
+            <h6 style="color:white;">Make Payment</h6>
+          </div>
+          <div class="panel-body">
+            <div class="payment-details-body">
+
+              <form class="" action="/payment-by-coordinator" id="paymentDetailsfrm" method="post">
+
+                  <div class="form-group row" >
+                      <label for="totalStudent" class="col-sm-4 col-form-label" ><strong>Total Student:</strong></label>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="totalStudent" id="totalStudent" value="" readonly>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row" >
+                      <label for="StudentsID" class="col-sm-4 col-form-label" ><strong>Students Reg. No.:</strong></label>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="StudentsID" id="StudentsID" value="" readonly>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group row" >
+                      <label for="totalAmount" class="col-sm-4 col-form-label" ><strong>Total Amount (&#x20B9;):</strong></label>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="totalAmount" id="totalAmount" value="" readonly>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="paymentMode" class="col-sm-4 col-form-label" ><strong>Payment Mode <span class="mandatory">*</span> </strong></label>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <select class="form-control" name="paymentMode" id="paymentMode" required>
+                              <option value="">--- Select Payment Mode ---</option>
+                              <option value="Cash">Cash</option>
+                              <option value="Google Pay">Google Pay</option>
+                              <option value="Phone Pe">Phone Pe</option>
+
+                         </select>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="Google-Pay barcode-div">
+                  <img class="img-thumbnail" src="/images/payment-mode-qr-codes/arvind_google_pay_qr_code.jpg" alt="Unable to load Google Pay QR Code">
+                </div>
+                <div class="Phone-Pe barcode-div">
+                  <img class="img-thumbnail" src="/images/payment-mode-qr-codes/arvind_phone_pe_qr_code.jpg" alt="Unable to load Phone Pe QR Code">
+                </div>
+                <div class="form-group row upi-Ref-div">
+                    <p class="text-danger text-center" style="margin-left:10px; margin-right:10px;"> <strong> Pay registration fee and enter reference number for final submission.</strong> </p>
+                    <label for="UPIRefNumber" class="col-sm-3 col-form-label" ><strong>UPI/UTR Reference Number <span class="text-danger"><strong>*</strong></span> </strong> </p></label>
+                    <div class="col-sm-9">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="UPIRefNumber" id="UPIRefNumber" value="" placeholder="Enter UPI/UTR reference number starting with 9" minlength = "12" maxlength="12" >
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <button class="btn btn-block btn-success" type="submit" name="make-payment-button" id="coordinator-make-payment-btn">Make Payment</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-block btn-danger"  type="reset" name="reset-button">Reset</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <p></p>
+    </div>
+
+  </body>
+</html>

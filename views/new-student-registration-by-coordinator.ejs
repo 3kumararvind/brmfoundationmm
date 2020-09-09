@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <%- include lib.ejs -%>
+    <title>Coordinator | Register Student</title>
+
+  </head>
+  <body>
+    <%- include coordinator-dashboard-menu.ejs -%>
+    <%- include particle-background.ejs -%>
+    <div class="container-fluid">
+          <section>
+            <div class="card border-primary">
+              <div class="card-header bg-info text-white">
+                  <h5 class="card-title text-center" >Students Registration By Coordinator </h5>
+              </div>
+              <div class="card-body">
+                <% successMessage %>
+                <% if(successMessage.length==1){ %>
+                  <div class="alert alert-success">
+                    <h5 class="text-center"><%= successMessage %></h5>
+                  </div>
+                  <% } %>
+
+                  <% if(errorMessage.length==1){ %>
+                      <div class="alert alert-danger">
+                        <h5 class="text-center"><%= errorMessage %></h5>
+                      </div>
+                  <% } %>
+                <form class="" action="/new-student-registration-by-coordinator" method="post">
+                    <p class="text-danger text-center"> <strong>Note: Fields marked with * are mandatory.</strong> </p>
+                  <fieldset>
+
+                    <legend><span style="color:red;"> <strong>Student Detail:</strong> </span> </legend>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="studentfirstname"><strong>First Name <span class="mandatory">*</span> </strong> </label>
+                        <input type="text" class="form-control" name="studentfirstname" id="studentfirstname" placeholder="Student first Name" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="studentmiddletname"> <strong>Middle Name</strong> </label>
+                        <input type="text" class="form-control" name="studentmiddlename" id="studentmiddlename" placeholder="Student Middle Name">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="studentlastname"> <strong>Last Name <span class="mandatory">*</span></strong> </label>
+                        <input type="text" class="form-control" name="studentlastname" id="studentlastname" placeholder="Student Last Name" required>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="studentemail"> <strong>Email</strong> </label>
+                        <input type="email" class="form-control" name="studentemail" id="studentemail" placeholder="Student Email">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="studentwhatsappnumber"> <strong>WhatsApp Number</strong> </label>
+                        <input type="number" class="form-control" name="studentwhatsappnumber" id="studentwhatsappnumber" placeholder="WhatsApp Number">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="studentmobilenumber"> <strong>Mobile Number <span class="mandatory">*</span></strong></strong> </label>
+                        <input type="number" class="form-control" name="studentmobilenumber" id="studentmobilenumber" placeholder="Mobile Number" required>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-2">
+                        <label for="studentclass"> <strong>Class <span class="mandatory">*</span></strong></strong> </label>
+
+                        <% key = Object.keys(academicClassList) %>
+                        <% value = Object.values(academicClassList) %>
+                        <select class="form-control" name="studentclass" id="studentclass" required>
+                          <option value="" selected>---Select Class---</option>
+                          <% for(i=0; i<key.length; i++){ %>
+                              <option value="<%= key[i] %>"><%= value[i] %></option>
+                          <%  } %>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="studentdob"> <strong>D.O.B. (MM-DD-YYYY) <span class="mandatory">*</span></strong></strong>  </label>
+                        <input type="date" class="form-control" name="studentdob" id="studentdob" required>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="studentgender"> <strong>Gender <span class="mandatory">*</span></strong></strong></label>
+                        <select class="form-control" name="studentgender" required>
+                          <option value="">--- Select Gender  ---</option>
+                          <option value="FEMALE">FEMALE</option>
+                          <option value="MALE">MALE</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="studentorganisation"> <strong>Organisation <span class="mandatory">*</span></strong></strong> </label>
+                        <select class="form-control" name="studentorganisation" required>
+                          <option value=""> --- Select Organisation --- </option>
+                          <% organisationList.forEach(function(organisation){ %>
+                          <option value="<%=  organisation.organisation_id %>"><%= organisation.organisation_name + ', ' + organisation.organisation_address %></option>
+                          <% }) %>
+                        </select>
+                        <p class="text-danger"> <strong>Contact technical support team to add organisation name, if not found in list.</strong> </p>
+                      </div>
+                    </div>
+
+                    <hr>
+                  <!--   <legend><span style="color:red;"> <strong>Parent Details:</strong> </span> </legend>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="fatherfirstname"><strong>Father's First Name <span class="mandatory">*</span></strong></strong> </label>
+                        <input type="text" class="form-control" name="fatherfirstname" id="fatherfirstname" placeholder="Father's first Name" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="fathermiddletname"> <strong>Father's Middle Name</strong> </label>
+                        <input type="text" class="form-control" name="fathermiddlename" id="fathermiddlename" placeholder="Father's Middle Name">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="fatherlastname"><strong>Father's Last Name <span class="mandatory">*</span></strong></strong> </label>
+                        <input type="text" class="form-control" name="fatherlastname" id="fatherlastname" placeholder="Father's Last Name" required>
+                      </div>
+                    </div>
+
+                   <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="motherfirstname"><strong>Mother's First Name <span class="mandatory">*</span></strong></strong> </label>
+                        <input type="text" class="form-control" name="motherfirstname" id="motherfirstname" placeholder="Mother's first Name" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="mothermiddletname"> <strong>Mother's Middle Name </strong> </label>
+                        <input type="text" class="form-control" name="mothermiddlename" id="mothermiddlename" placeholder="Mother's Middle Name">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="motherlastname"> <strong>Mother's Last Name <span class="mandatory">*</span></strong></strong></label>
+                        <input type="text" class="form-control" name="motherlastname" id="motherlastname" placeholder="Mother's Last Name" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="parentcontactnumber"> <strong>Parent Contact number <span class="mandatory">*</span></strong></strong></label>
+                      <input type="number" class="form-control" name="parentcontactnumber" id="parentcontactnumber" placeholder="Parent Contact Number" required>
+                    </div>
+                    <hr>  -->
+                    <legend><span style="color:red;"> <strong>Event Registration</strong> </span> </legend>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="studentfirstname"> <strong>Participating Category <span class="mandatory">*</span></strong></strong> </label>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                             <input type="checkbox" class="custom-control-input" name="eventRegistrationCategory" checked value="Individual" id="defaultInline1">
+                             <label class="custom-control-label" for="defaultInline1">Individual</label>
+                       </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" name="eventRegistrationCategory" value="Group" id="defaultInline2">
+                          <label class="custom-control-label" for="defaultInline2">Group</label>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="IndividualEventList"> <strong>Individual Events</strong> </label>
+                        <select class="form-control" name="IndividualEventList" id="IndividualEventList" multiple>
+                            <option >--- Select Event ---</option>
+
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6" id="groupEvent">
+                          <label for="GroupEventList"> <strong>Group Events</strong> </label>
+                          <select class="form-control" name="GroupEventList" id="GroupEventList" multiple >
+                              <option >--- Select Event ---</option>
+
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-row" id="teamName">
+                        <label for="teamMember">Team Members <span class="mandatory">*</span></strong></label>
+                        <input type="text" class="form-control" name="teamMember" value="" placeholder="Enter Team Member Name In Capital Letter Sepated By Comma ( , )">
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="coordinator"> <strong>Coordinator Name <span class="mandatory">*</span></strong></strong> </label>
+                        <select name="coordinator" class="form-control">
+                          <option value="<%= coordinatorId %>"> <%=loggedInUser %> </option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="participationgGroup"> <strong>Participating Group <span class="mandatory">*</span></strong></strong> </label>
+                        <input type="text" class="form-control" name="participationgGroup" id="participationgGroup" value="" readonly>
+                      </div>
+
+                    </div>
+                    <hr>
+
+                    <!--
+                      <legend><span style="color:red;"> <strong>Registration Fee Details</strong> </span> </legend>
+                      <div class="form-row">
+                        <div class="form-group col-md-4" >
+                            <label for="totalAmount" ><strong>Total Registration Fee (&#x20B9; ): </strong> </label>
+                            <input type="number" class="form-control" name="totalAmount" id="totalAmount" readonly >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="discountAmount" ><strong>Discount Amount (&#x20B9; ): </strong> </label>
+                                <input type="number" class="form-control" name="discountAmount"  readonly >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="netPayableAmount" ><strong>Net Payable Amount  (&#x20B9; ): </strong></label>
+                            <input type="number" class="form-control" name="netPayableAmount" id="netPayableAmount"  readonly >
+                        </div>
+                      </div>
+                -->
+                    <p style="color:red;"> <strong>*** Note: Additional Rs 150 will be applicable for Tshirt.***</strong> </p>
+                    <div class="form-row">
+                        <label for="carnivalTshirt" class="col-sm-3 col-form-label" ><strong>Carnival Tshirt(Optional): </strong> </label>
+                        <div class="col-sm-9">
+                          <div class="form-group">
+                            <input type="radio" id="carnival_tshirt_yes_btn" name="carnival_tshirt_radio" value="Y" > Yes
+                            <input type="radio" id="carnival_tshirt_no_btn" name="carnival_tshirt_radio" value="N" checked > NO
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row carnivalTshirtSizediv">
+                        <label for="carnivalTshirtSize" class="col-sm-3 col-form-label" ><strong>Carnival Tshirt Size: </strong> </label>
+                        <div class="col-sm-9">
+                          <div class="form-group">
+                            <input type="radio" id="carnival_tshirt_small_size_btn" name="carnival_tshirt_size_radio" value="S" > Small
+                            <input type="radio" id="carnival_tshirt_medium_size_btn" name="carnival_tshirt_size_radio" value="M" checked > Medium
+                            <input type="radio" id="carnival_tshirt_medium_size_btn" name="carnival_tshirt_size_radio" value="L"  > Large
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                          <button type="submit" class="btn btn-block btn-success" name="register-new-student-btn" id="register-new-student-btn">Register Student</button>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <button type="reset" class="btn btn-block btn-danger" name="reset-button">Reset</button>
+                      </div>
+                    </div>
+
+                   </fieldset>
+                </form>
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+  </body>
+</html>

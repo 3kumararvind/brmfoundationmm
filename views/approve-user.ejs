@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include lib.ejs -%>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Approve User</title>
+  </head>
+  <body>
+    <%- include admin-dashboard-menu.ejs -%>
+  	<% include particle-background.ejs %>
+    <div class="container-fluid">
+      <div class="card boder-info">
+        <div class="card-header bg-info">
+          <h5 class="text-white text-center">Approve User</h5>
+        </div>
+        <div class="card-body">
+            <% if(errorMessage.length==1){ %>
+            <div class="alert alert-danger">
+              <h5 class="text-center"><%= msg %></h5>
+            </div>
+            <% } %>
+            <form class="" method="post">
+               <% if(notVerifiedUsersList.length>0){ %>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">S.N.</th>
+                          <th class="text-center">User Id</th>
+                          <th>Full Name</th>
+                          <th>Username</th>
+                          <th>User Category</th>
+                          <th>Verfication Status</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <% let i = 0; %>
+                          <% notVerifiedUsersList.forEach(function(user){ %>
+                            <% i++ %>
+                              <tr>
+                                <td class="text-center"><%= i %></td>
+                                <td class="text-center id"><%= user.userid %> </td>
+                                <td class="fullName"><%= user.fullName %></td>
+                                <td ><%= user.username %></td>
+                                <td><%= user.userCategory %></td>
+                                <td><%= user.userverificationstatus %></td>
+                                <td class="userverificationcapprovebtn text-center"> <button type="button" class="btn btn-success" name="userverificationcbtn">Approve</button> </td>
+                              </tr>
+                          <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+              <% }else{ %>
+                   <p class="text-danger text-center"><strong>No user pending for verification</strong> </p>
+              <% } %>
+            </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

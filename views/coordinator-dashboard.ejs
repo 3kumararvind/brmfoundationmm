@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+      <%- include lib.ejs -%>
+    <title>Coordinator Dashboard</title>
+  </head>
+  <body>
+    <%- include coordinator-dashboard-menu.ejs -%>
+  	<% include particle-background.ejs %>
+      <div class="container-fluid">
+        <div class="row" id="coordinator-incentive-amnt-alert">
+          <div class="col text-center" >
+            <div class="alert alert-danger alert-dismissible text-danger" role="alert">
+                  <strong><h5>Coodinators will get incentive for every individual registration under them. For 01-100 students registration 10% incentive, for 101-200 students registration 15% incentive and for 200+ students 20% incentive will be provided to coordinators.</h5> </strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-5 md-6">
+            <div class="sidebar card">
+              <a class="btn btn-primary btn-lg" href="/new-student-registration-by-coordinator">Register New Student</a>
+              <a class="btn btn-danger btn-lg " href="/payment-by-coordinator">Make Payment</a>
+              <a class="btn btn-warning btn-lg" href="/view-participants">View Participants</a>
+              <a class="btn btn-success btn-lg" href="/view-payment-details-by-coordinator">View/Remove Payment Details</a>
+              <a class="btn btn-info btn-lg" href="/view-student-credentials">View Registered Students Credentials</a>
+            </div>
+          </div>
+
+          <div class="col-lg-5 md-6">
+            <img class="img-thumbnail" src="/images/events/isc-2K19/interschool-carnival-2k19.jpg" alt="INTERSCHOOL CARNIVAL">
+          </div>
+
+          <div class="col-lg-1"></div>
+        </div>
+
+          <div class="content" id="main-body-content">
+          </div>
+    </div>
+
+    </body>
+</html>

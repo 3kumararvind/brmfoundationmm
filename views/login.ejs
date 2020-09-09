@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Login</title>
+  </head>
+  <body>
+    <%- include menu.ejs -%>
+    <% include particle-background.ejs %>
+    <div class="container-fluid">
+      <div class="row login-page-div">
+        <div class="col-lg-4 col-md-6" id="isc-login-form">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title ">
+                <h2 class="text-white text-center">Login</h2>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="login-form-img-container">
+                <img class="img-thumbnail" src="/images/upload-image.png" alt="Unable to load profile image">
+              </div>
+              <form action="/login" method="post">
+                <div class="container-fluid">
+                <%  if(loginErr.length!=0){ %>
+                    <div class="alert alert-danger">
+                       <strong> <%= loginErr %></strong>
+                    </div>
+                <%  } %>
+                  <label for="username"><strong>Username</strong></label> <br>
+                  <input class="form-control" type="text" name="username" placeholder="Enter your username" required> <br>
+
+                  <label for="userpassword"><strong>Password</strong></label> <br>
+                  <input class="form-control" type="password" name="password" placeholder="Enter your password" required> <br>
+
+                  <button type="submit" class="btn btn-success btn-block" name="isc-login-btn">Login</button>
+                  <button type="reset" class="btn btn-danger btn-block" name="isc-reset-btn">Reset</button>
+                  <div class="register-text-info">
+                    <strong><p class="text-center">Are you a new user? <a href="/register">Click here to register.</a></p></strong>
+                    <strong> <p class="text-center">Forgot your password? <a href="/reset-password">Click here to reset password.</a> </p> </strong>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include footer.ejs -%>
+
+  </body>
+</html>

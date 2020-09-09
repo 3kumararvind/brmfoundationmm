@@ -1,0 +1,62 @@
+<footer>
+	<div class="quickLink">
+		<div class="container footerMenu">
+			<div class="row">
+				<div class="col-sm-3">
+				  <a href="/who-we-are">Who We Are</a>
+					<a href="/mission">Mission</a>
+					<a href="/contact">Contact Us</a>
+
+				</div>
+				<div class="col-sm-3">
+					<a href="/picture-gallery">Picture Gallery</a>
+					<a href="/video-gallery">Video Gallery</a>
+					<a href="/media-corner">Media Corner</a>
+
+				</div>
+				<div class="col-sm-3">
+					<a href="/members">Team Members</a>
+				  <a href="/interschool-carnival">ISC 2K19</a>
+					<a href="/donate">Donate</a>
+
+				</div>
+				<div class="col-sm-3">
+					<div id="map"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyRight container" id="footer-text">
+		<div class="row">
+			<div class="col-sm-7">
+				<p>&#169; 2017-2019 Babu Ram Mahto Foundation, Marang Marcha | All Right Reserved.</p>
+			</div>
+			<div class="col-sm-5">
+				<p>
+					<a class="developer" href="" target="_blank">Website Designed & Developed By: Arvind Kumar</a>
+				</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</footer>
+
+<!--End of footer-->
+
+<script>
+	function initMap() {
+		var uluru = {
+			lat : 23.562971,
+			lng : 85.689385
+		};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom : 18,
+			center : uluru
+		});
+		var marker = new google.maps.Marker({
+			position : uluru,
+			map : map
+		});
+	}
+</script>
+<script async defer	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOEduGhgzCgrVtkF-uCJcJQZZSLN3mW4&callback=initMap"></script>

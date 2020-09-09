@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Add Student Parent Details</title>
+
+  </head>
+  <body>
+    <%- include student-dashboard-menu.ejs -%>
+    <% include particle-background.ejs %>
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-8 col-md-8" id="studentparent-form-div">
+            <div class="card border-infor">
+              <div class="card-header bg-info">
+                <div class="card-title">
+                  <h5 class="text-center text-white">Students Parents Details</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                <% if(successMessage.length==1){ %>
+                <%  successMessage.forEach(function(msg){ %>
+                  <div class="alert alert-success">
+                    <h5 class="text-center"><%= msg %></h5>
+                  </div>
+                <% }) %>
+                  <% } %>
+
+                  <% if(errorMessage.length==1){ %>
+                    <%  errorMessage.forEach(function(msg){ %>
+                      <div class="alert alert-danger">
+                        <h5 class="text-center"><%= msg %></h5>
+                      </div>
+                    <% }) %>
+                  <% } %>
+                  <form class="" action="/add-student-parent-details" method="post">
+
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Fathers First Name <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="fathersFname" value="<%= parentDetailsExist!=null ? parentDetailsExist.f_fname:'' %>" placeholder="Enter Fathers First Name" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Fathers Middle Name</strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="fathersMname" value="<%= parentDetailsExist!=null ? parentDetailsExist.f_mname:'' %>" placeholder="Enter Fathers Middle Name" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Fathers Last Name <span class="mandatory">*</span> </strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="fathersLname" value="<%= parentDetailsExist!=null ? parentDetailsExist.f_lname:'' %>" placeholder="Enter Fathers Last Name" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Mothers First Name <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="mothersFname" value="<%= parentDetailsExist!=null ? parentDetailsExist.m_fname:'' %>" placeholder="Enter Mothers First Name" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Mothers Middle Name</strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="mothersMname" value="<%= parentDetailsExist!=null ? parentDetailsExist.m_mname:'' %>" placeholder="Enter Mothers Middle Name" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Mothers Last Name <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control " name="mothersLname" value="<%= parentDetailsExist!=null ? parentDetailsExist.m_lname:'' %>" placeholder="Enter Mothers Last Name" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="class" class="col-sm-3 col-form-label" ><strong>Parents Contact Number <span class="mandatory">*</span> </strong></label>
+                        <div class="col-sm-9">
+                          <input type="number" class="form-control " name="parentsContact" value="<%= parentDetailsExist!=null ? parentDetailsExist.parents_contact:'' %>" placeholder="Enter Parents Contact Number" required>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <button type="submit" class="btn btn-success btn-block" style="margin-bottom:10px;" name="add-parent-submit-btn">Update Parent Details</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="reset" class="btn btn-danger btn-block" name="add-parent-reset-btn">Reset</button>
+                        </div>
+                      </div>
+                    </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<header>
+  <nav class="navbar navbar-expand-md">
+    <a class="navbar-brand" href="/coordinator-dashboard">Coordinator Dashboard <i class="fa fa-home" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <i class="fas fa-bars" style="color:white;"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <p class="text-right" style="color:white; margin-bottom:-5px;">Welcome: <strong> <%=loggedInUser%></strong></p>
+          <p class="text-right" style="color:white; margin-bottom:-5px; ">Logged In As:  <strong> <%=loggedInUserCategory%></strong></p>
+          <a href="/logout"><p class="text-right" style="color:white; margin-bottom:-5px;">Logout </p></a>
+        </li>
+        <!-- Dropdown -->
+      </ul>
+    </div>
+  </nav>
+</header>

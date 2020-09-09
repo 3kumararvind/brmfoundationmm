@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Add Organisation</title>
+  </head>
+  <body>
+      <%- include admin-dashboard-menu.ejs -%>
+      	<% include particle-background.ejs %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-md-6" id="add-organisation-form">
+            <div class="card border-info">
+              <div class="card-header bg-info">
+                <div class="card-title">
+                  <h5 class="text-center text-white">Add New Organisation</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                <% if(successMessage.length==1){ %>
+                <%  successMessage.forEach(function(){ %>
+                  <div class="alert alert-success">
+                    <h5 class="text-center"><%= successMessage %></h5>
+                  </div>
+                <% }) %>
+                  <% } %>
+
+                  <% if(errorMessage.length==1){ %>
+                  <%  errorMessage.forEach(function(){ %>
+                    <div class="alert alert-danger">
+                      <h5 class="text-center"><%= errorMessage %></h5>
+                    </div>
+                  <% }) %>
+                    <% } %>
+                    <form  action="/add-organisation" method="post">
+
+                      <div class="form-group row">
+                        <label for="organisationName" class="col-sm-2 col-form-label"><strong>Organisation Name <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control " name="organisationName" placeholder="Enter Organisation Name" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="organisationAddress" class="col-sm-2 col-form-label"><strong>Address <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control " name="organisationAddress" placeholder="Enter Organisation Address" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="OrganisationState" class="col-sm-2 col-form-label"><strong>State <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <select id="stateGroup" name="stateName" class="form-control" required>
+                            <option value=""> --- Select State --- </option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Orissa">Orissa</option>
+                            <option value="Pondicherry">Pondicherry</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttaranchal">Uttaranchal</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="West Bengal">West Bengal</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="OrganisationDistrict" class="col-sm-2 col-form-label"><strong>District <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <select id="districtGroup" name ="districtName" class="form-control" required >
+                            <option value="">--- Select District ---</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="organisationPin" class="col-sm-2 col-form-label"><strong>Pin Code <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" name="organisationPin" placeholder="Enter Organisation Pin Code" maxlength="6" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="OrganisationCountry" class="col-sm-2 col-form-label"><strong>Country <span class="mandatory">*</span></strong></label>
+                        <div class="col-sm-10">
+                          <select id="districtGroup" name="countryName" class="form-control" >
+                            <option value="">--- Select Country ---</option>
+                            <option value="India">India</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-6">
+                            <button type="submit" class="btn btn-success btn-block" style="margin-bottom:10px;" name="add-organisation-submit-btn">Add Organisation</button>
+                          </div>
+                          <div class="col-6">
+                            <button type="reset" class="btn btn-danger btn-block" name="add-organisation-reset-btn">Reset</button>
+                          </div>
+                      </div>
+
+
+                    </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+            $("#stateGroup").change(function () {
+                var val = $(this).val();
+                if (val == "Jharkhand") {
+                    $("#districtGroup").html("<option value=' '>--- Select District ---</option> <option value='Bokaro'>Bokaro</option> <option value='Chatra'>Chatra</option><option value='Deoghar'>Deoghar</option><option value='Dhanbad'>Dhanbad</option><option value='Dumka'>Dumka</option><option value='East Singhbhum'>East Singhbhum</option><option value='Garhwa'>Garhwa</option><option value='Giridih'>Giridih</option><option value='Godda'>Godda</option><option value='Gumla'>Gumla</option><option value='Hazaribagh'>Hazaribagh</option><option value='Jamtara'>Jamtara</option><option value='Khunti'>Khunti</option><option value='Koderma'>Koderma</option><option value='Latehar'>Latehar</option><option value='Lohardaga'>Lohardaga</option><option value='Pakur'>Pakur</option><option value='Palamu'>Palamu</option><option value='Ramgarh'>Ramgarh</option><option value='Ranchi'>Ranchi</option><option value='Sahebganj'>Sahebganj</option><option value='Saraikela Kharsawan'>Saraikela Kharsawan</option><option value='Simdega'>Simdega</option><option value='West Singhbhum'>West Singhbhum</option>");
+                }
+                else{
+                  $("#districtGroup").html("<option value=' '>--- Select District ---</option>");
+                }
+            });
+
+          });
+      </script>
+  </body>
+</html>

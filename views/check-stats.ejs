@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <% include lib.ejs %>
+    <title>Stats</title>
+  </head>
+  <body>
+    <%- include admin-dashboard-menu.ejs -%>
+    <% include particle-background.ejs %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10 col-md-10" id="statsDiv">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h5 class="text-center text-white">Stats Of Interschool Carnival 2K19</h5>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4>User Stats</h4>
+              <div class="card-columns">
+                  <div class="card bg-primary">
+                    <div class="card-body text-center">
+                      <p class="card-text">Total Students Registered</p>
+                      <h1><%=students%></h1>
+                    </div>
+                  </div>
+                  <div class="card bg-warning">
+                    <div class="card-body text-center">
+                      <p class="card-text">Total Approved Coordinators</p>
+                      <h1><%=verifiedCoordinators %></h1>
+                    </div>
+                  </div>
+                  <div class="card bg-success">
+                    <div class="card-body text-center">
+                      <p class="card-text">Total Approved Admins</p>
+                      <h1><%=verifiedAdmins %></h1>
+                    </div>
+                  </div>
+                  <div class="card bg-danger">
+                    <div class="card-body text-center">
+                      <p class="card-text">Total Un Approved Coordinators</p>
+                      <h1><%=notVerifiedCoordinator %></h1>
+                    </div>
+                  </div>
+                  <div class="card bg-light">
+                    <div class="card-body text-center">
+                      <p class="card-text">Total Un Approved Admins</p>
+                      <h1><%=unVerifiedAdmins %></h1>
+                    </div>
+                  </div>
+                </div>
+                <h4>Payment Stats</h4>
+                <div class="card-columns">
+                  <div class="card bg-primary">
+                    <div class="card-body text-center">
+                      <p class="card-text">Pending With Coordinator</p>
+                      <h1><%=pendingWithCoordinators %></h1>
+                    </div>
+                  </div>
+                  <div class="card bg-success">
+                    <div class="card-body text-center">
+                      <p class="card-text">Pending With Organiser</p>
+                      <h1><%=pendingWithOrganizers %></h1>
+                    </div>
+                  </div>
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <p class="card-text">Final Approved By Organiser</p>
+                        <h1><%=finalApprovedByOrganiser %></h1>
+                      </div>
+                    </div>
+                    <div class="card bg-warning">
+                      <div class="card-body text-center">
+                        <p class="card-text">PAYMENT NOT INITIATED</p>
+                        <h1><%=students -(finalApprovedByOrganiser+pendingWithOrganizers+pendingWithCoordinators) %></h1>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </body>
+</html>

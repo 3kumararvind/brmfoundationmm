@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <% include lib.ejs %>
+    <title>Coordinator Wise Participants List</title>
+  </head>
+  <body>
+    <%- include admin-dashboard-menu.ejs -%>
+    <%- include particle-background.ejs -%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-11" id="coordinator-wise-students-list-div">
+          <div class="card border-info">
+            <div class="card-header bg-info">
+              <div class="card-title">
+                <h5 class="text-white text-center">Coordinator Wise Participants List</h5>
+              </div>
+            </div>
+            <div class="card-body">
+
+              <form class="coordinatorWiseStudentListFrm"  method="post">
+                <div class="form-row">
+                  <div class="form-group col-md-4 offset-md-1">
+                    <label for="coordinatorDdlList"><strong>Coordinator Name: <span class="mandatory">*</span></strong></label>
+                    <select class="form-control" id="coordinatorDdlList" name="coordinatorDdlList" required>
+                      <option value="">--- Select Coordinator --- </option>
+                      <% if(verifiedCoordinators){ %>
+                        <% verifiedCoordinators.forEach(function(coordinator){ %>
+                          <% let fullName; %>
+                          <% if(coordinator.fname && coordinator.mname && coordinator.lname){ %>
+                            <% fullName = coordinator.fname + " " + coordinator.mname + " " + coordinator.lname %>
+                          <% }else{ %>
+                            <% fullName = coordinator.fname + " " + coordinator.lname %>
+                          <% } %>
+                          <option value="<%=coordinator.userid %>" > <%= fullName %> </option>
+                        <% }) %>
+                      <% } %>
+                     </select>
+                  </div>
+                  <div class="form-group offset-md-2 col-md-4">
+                    <br>
+                    <button class="btn btn-success  btn-block" type="button" id="searchStudentUnderCoordinator" name="searchStudentUnderCoordinator">Search</button>
+                  </div>
+                </div>
+                <div class="errMsgDiv">
+                  <h6 class="text-center text-danger errMsgTxt"></h6>
+                </div>
+                <div class="loading-page-img-div">
+                  <img class="animated-gif" src="/images/loading-page.gif"  alt="Unable to load image">
+                </div>
+                <div class="table-responsive" id="CoordinatorStudentListTbl">
+                  <table class="table table-bordered table-sm" >
+                    <thead>
+                      <tr>
+                        <th>S.N.</th>
+                        <th>Registration No.</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Organisation</th>
+                        <th>Payment Mode</th>
+                        <th>Reg Fee</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                  </table>
+                  <div class="Facultycommisiondiv">
+                    <p id="totalAmnt"></p>
+                    
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

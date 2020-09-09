@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <%- include lib.ejs -%>
+    <title>Add Event</title>
+  </head>
+  <body>
+      <%- include admin-dashboard-menu.ejs -%>
+      	<% include particle-background.ejs %>
+      <div class="container-fluid">
+        <div class="row" >
+          <div class="col-lg-6 col-md-6" id="add-event-form">
+            <div class="card border-info">
+              <div class="card-header bg-info">
+                <div class="card-title">
+                  <h5 class="text-center text-white">Add New Event</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                <form action="/add-event" method="post">
+                    <% if(successMessage.length==1){ %>
+                    <%  successMessage.forEach(function(){ %>
+                      <div class="alert alert-success">
+                        <h5 class="text-center"><%= successMessage %></h5>
+                      </div>
+                    <% }) %>
+                      <% } %>
+
+                      <% if(errorMessage.length==1){ %>
+                      <%  errorMessage.forEach(function(){ %>
+                        <div class="alert alert-danger">
+                          <h5 class="text-center"><%= errorMessage %></h5>
+                        </div>
+                      <% }) %>
+                        <% } %>
+                  <div class="form-group row">
+                    <label for="eventName" class="col-sm-3 col-form-label"><strong>Event Name <span class="mandatory">*</span></strong></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="eventName" placeholder="Enter Event Name" required>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="eventCategory" class="col-sm-3 col-form-label"><strong>Event Category</strong></label>
+                    <div class="col-sm-9">
+                      <select id="eventCategory" name="eventCategory" class="form-control" >
+                        <option value="Individual" selected>Individual</option>
+                        <option value="Group">Group</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-lg-4 col-md-4">
+                      <p> <strong> Junior Group <br>(Up to Class 5) </strong> </p>
+                      <select class="form-control" name="eventForJuniorGroup">
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <p> <strong> Senior Group <br>(Class 6 to Class 9) </strong> </p>
+                      <select class="form-control" name="eventForSeniorGroup">
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <p> <strong> Super Senior Group <br> (class 10 & Above)</strong> </p>
+                      <select class="form-control" name="eventForSuperSeniorGroup">
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-6">
+                        <button type="submit" class="btn btn-success btn-block" style="margin-bottom:10px;" name="add-event-submit-btn">Add Event</button>
+                      </div>
+                      <div class="col-6">
+                        <button type="reset" class="btn btn-danger btn-block" name="add-event-reset-btn">Reset</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+            $("#eventGroup").change(function () {
+                var val = $(this).val();
+                if (val == "Junior Group") {
+                    $("#eventClassGroup").html("<option value='Class I - VII'>Class I - VII</option>");
+                } else if (val == "Senior Group") {
+                    $("#eventClassGroup").html("<option value='Class VIII & Above'>Class VIII & Above</option>");
+                }
+            });
+          });
+      </script>
+  </body>
+</html>
