@@ -1,0 +1,943 @@
+$(document).ready(function () {
+
+
+    $('.registration-form').submit(function(e) {
+    e.preventDefault();
+    $.validator.addMethod(
+      "regex",
+      function(value, element, regexp) {
+          return this.optional(element) || regexp.test(value);
+      },
+      "Mobile number must start with 6/7/8/9."
+    );
+    $('form[class="registration-form"]').validate({
+        rules: {
+          fname:{
+            required:true
+          },
+          lname:{
+            required:true
+          },
+          uname:{
+            required: true
+          },
+          userCategory:{
+            required:true
+          },
+          pwd: {
+            required: true,
+            minlength: 6
+          },
+
+          pwd2:{
+            required: true,
+            minlength: 6,
+            equalTo:'#pwd'
+          },
+        mobileno:{
+          required:true,
+          minlength:10,
+          maxlength:10,
+          regex:/[6789]{1}[0-9]{9}/
+
+        },
+        email:{
+          required:true
+        },
+        securityquestion:{
+          required:true,
+        },
+        securityanswer:{
+          required:true,
+        }
+        },
+        messages: {
+        fname:{
+          required: 'Please enter first name.'
+        },
+        lname:{
+          required: 'Please enter last name.'
+        },
+        uname:{
+          required: 'Please enter username.'
+        },
+        userCategory:{
+          required:'Please select category.'
+        },
+          pwd: {
+            required: 'Please provide password.',
+            minlength: 'Password must be at least 6 characters long.',
+            },
+          pwd2:{
+              required: 'Please provide password.',
+              minlength: 'Password must be at least 6 characters long.',
+              equalTo: 'Password must be same.'
+          },
+        mobileno:{
+          required:'Please enter 10 digit mobile number.',
+          minlength:'Mobile number should be of 10 digit.',
+          maxlength:'Mobile number cannot be more than 10 digit.',
+          regex:"Mobile number must start with 6/7/8/9."
+        },
+        email:{
+          required:'Please enter email id.'
+        },
+        securityquestion:{
+          required:'Please select security question.'
+        },
+        securityanswer:{
+          required:'Please enter security answer.'
+        }
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+    });
+
+  $("#evevntGroupName").hide();
+  $("#groupEvent").hide();
+  $("#teamName").hide();
+
+  $("#defaultInline2").click(function(){
+      if ($(this).is(":checked")) {
+                  $("#groupEvent").show();
+                  $("#teamName").show();
+              } else {
+                  $("#teamName").hide();
+                  $("#groupEvent").hide();
+                  $("#teamName").prop('selected', false);
+              }
+  });
+
+  $("#paymentMode").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+
+            if(optionValue=="Phone Pe"){
+              optionValue="Phone-Pe";
+            }else if(optionValue=="Google Pay"){
+              optionValue = "Google-Pay";
+            }
+            if(optionValue){
+                $(".barcode-div").not("." + optionValue).hide();
+                $("." + optionValue).show();
+                if(optionValue=="Cash"){
+                  $(".upi-Ref-div").hide();
+                }else{
+                  $(".upi-Ref-div").show();
+                }
+                //scroll the screen
+                 $("html, body").animate({ scrollTop: $(document).height() }, 2000);
+            } else{
+                $(".barcode-div").hide();
+                $(".upi-Ref-div").hide();
+            }
+        });
+    }).change();
+
+    $('#paymentDetailsfrm').submit(function(e) {
+    e.preventDefault();
+    $('form[id="paymentDetailsfrm"]').validate({
+        rules: {
+          UPIRefNumber: {
+            required: true,
+            minlength: 12,
+            maxlength:12
+
+          }
+        },
+        messages: {
+          UPIRefNumber: {
+            minlength: 'Reference number must be 12 character long.',
+            maxlength: 'Reference number cannot be greater than 12 character long.',
+            required: 'Please enter UPI/UTR reference number.'
+
+          }
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+  });
+
+
+    let val= $("#payStatus").text();
+    if(val=="Done"){
+      $("#payStatus").hide();
+      $("#reg-btn").addClass('disabled');
+      $("#payment-btn").addClass('disabled');
+    }else{
+      $("#payStatus").hide();
+    }
+
+      $("#payment-option-div").hide();
+
+    let totalCheck=0;
+    let studentsListWithPayment;
+
+    $('input[name=paymentCheck]').change(function(){
+          if($(this).is(':checked')) {
+            totalCheck++;
+          } else {
+              totalCheck--;
+          }
+          if(totalCheck){
+            $("#payment-option-div").show();
+          }else{
+            $("#payment-option-div").hide();
+          }
+          let totalAmount=0;
+          let studentsId = [];
+          let totalStudent=0;
+          studentsListWithPayment = [];
+            //Loop through all checked CheckBoxes in GridView.
+            $("#studentDetailTable input[type=checkbox]:checked").each(function () {
+                var row = $(this).closest("tr")[0];
+                totalAmount+= parseInt(row.cells[6].innerHTML);
+                studentsId.push(row.cells[1].innerHTML);
+                totalStudent++;
+                sId=row.cells[1].innerHTML;
+                sAmnt=row.cells[6].innerHTML;
+
+                student = {studentId:parseInt(row.cells[1].innerHTML), fee:parseInt(row.cells[6].innerHTML)}
+                studentsListWithPayment.push(student);
+
+            });
+
+            $('#totalStudent').val(totalStudent);
+            $('#totalAmount').val(totalAmount);
+            $('#StudentsID').val(studentsId);
+
+
+    });
+
+    $('#coordinator-make-payment-btn').on('click', function(e){
+        e.preventDefault();
+
+        let totalAmount = $('#totalAmount').val();
+        let paymentMode = $('#paymentMode').children("option:selected").val();
+        let UPIRefNumber = $('#UPIRefNumber').val();
+
+        if(paymentMode=="Cash" || paymentMode=="Google Pay" || paymentMode=="Phone Pe"){
+        $.ajax({
+            url:"/payment-by-coordinator",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({studentsList:studentsListWithPayment, totalAmount:totalAmount, paymentMode:paymentMode, UPIRefNumber:UPIRefNumber }),
+            success: function(response){
+              if(response == "UPI/UTR reference number must start with 9 and must have 12 digits."){
+              alert(response);
+                return false;
+              }else{
+                  $("#payment-option-div").hide();
+                  alert(response);
+                  location.reload(true);
+              }
+            },
+            error: function(err){
+              alert("Error in Saving Payment Details");
+            }
+        });
+        }else{
+          alert("Please choose payment mode before proceeding.");
+          return false;
+        }
+
+    });
+
+    $('.table').on('click', '.delete-student-payment-detail', function(e){
+      e.preventDefault();
+      let deleteConfirm = confirm("Are you sure want to delete payment details?");
+      if(deleteConfirm == true){
+          let rowElement = $(this).closest('tr');
+          let studentId = rowElement.find('.studRegNo').text();
+          let coordinatorPayId = rowElement.find('.coordinatorPayId').text();
+          let payDate = new Date(rowElement.find('.paydate').text());
+          let amount = rowElement.find('.paidamount').text();
+          let payMode = rowElement.find('.paymode').text();
+          let ref;
+          if(payMode!="CASH"){
+              ref = rowElement.find('.refno').text();
+          }else{
+            ref = "NA";
+          }
+          console.log(payMode);
+          console.log(ref);
+        $.ajax({
+            url:"/view-payment-details-by-coordinator/"+ studentId + "/" + coordinatorPayId + "/" + payDate + "/" + amount + "/" + payMode + "/" + ref,
+            method: "DELETE",
+            contentType: "application/json",
+            success: function(response){
+              alert(response);
+              location.reload(true);
+            },
+            error: function(err){
+              alert("Error in Saving Payment Details");
+            }
+        });
+      }else{
+        return false;
+      }
+
+    });
+
+
+    $('#reset-security-pwd-div').hide();
+    $('#pwd-reset-proceed-btn').on('click', function(){
+      let userName = $("#userName").val();
+      if(userName.length!=0){
+        $.ajax({
+            url:"/security-question/" + userName,
+            method: "GET",
+            contentType: "application/json",
+            success: function(response){
+              if(response=="Sorry!!! You have entered wrong username. Please try again"){
+                $('.error-div').html(response);
+                $('#reset-security-pwd-div').hide();
+              }else{
+                $('.error-div').html(" ");
+                $('#securityquestion').val(response);
+                $('#reset-security-pwd-div').show();
+              }
+            },
+            error: function(err){
+              $('.error-div').html("Invalid username. Please try again.");
+            }
+        });
+      }else{
+          $('.error-div').html("Please enter username.");
+          return false;
+      }
+
+    })
+
+    $('#pwd-reset-form').submit(function(e) {
+    e.preventDefault();
+    $('form[id="pwd-reset-form"]').validate({
+        rules: {
+          password: {
+            minlength: 6
+          },
+          password2:{
+            minlength:6,
+            equalTo: "#password"
+          }
+        },
+        messages: {
+          password: {
+            minlength: 'Password must be of minimum 6 character.',
+
+          },
+          password2:{
+            minlength: 'Password must be of minimum 6 character.',
+            equalTo: 'Both password must be same.'
+
+          }
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+  });
+
+
+  var date = new Date();
+  var cYear = date.getFullYear();
+  var cMonth = date.getMonth();
+  var cDate = date.getDate();
+
+
+
+  $('#studListWithPayDetails').hide();
+  $("#loading-page-img-div").hide();
+  $('#search-btn').on('click', function(e){
+      e.preventDefault();
+      $('#OrgPayApproveForm').valid({
+        rules : {
+              fromDate : {
+                  required : true,
+                  date : true,
+                  dateITA : true,
+                  dateLessThan : '#toDate'
+              },
+              toDate : {
+                  required : true,
+                  date : true,
+                  dateITA : true,
+                  dateGreaterThan : "#fromDate"
+              }
+            }
+      });
+      let paymentMode=$('select#studCoordpaymentMode').children('option:selected').val();
+      let coordinatorId = $('select#coordinatorddl').children('option:selected').val();
+      let fromDate = new Date($('#fromDate').val());
+      fromDate.setHours(0, 0, 0, 0)    ;
+      let toDate = new Date($('#toDate').val());
+      toDate.setHours(23, 59, 59, 0)
+      let form = $('#OrgPayApproveForm');
+      if(form.valid()==true){
+      $.ajax({
+          url:"/organiser-approve-payment-detail/"+ fromDate +"/" + toDate + "/" + paymentMode + "/" + coordinatorId,
+          method: "GET",
+          contentType: "application/json",
+          beforeSend: function(){
+            $('.errMsgDiv').hide();
+            $('.loading-page-img-div').show();
+          },
+          complete: function(){
+              $('.loading-page-img-div').hide();
+          },
+          success: function(response){
+            $('#tbody').empty();
+          if(response == 'No transaction found' ){
+                $('#studListWithPayDetails').hide();
+                $('.errMsgTxt').html(response);
+                $('.errMsgDiv').show();
+                $('.loading-page-img-div').hide();
+          }else if(response == 'Invalid filter selected. Please try with another filter combination.'){
+              $('#studListWithPayDetails').hide();
+              $('.errMsgTxt').html(response);
+              $('.errMsgDiv').show();
+          }else{
+              $('.errMsgDiv').hide();
+              var trHTML = '';
+              var counter = 0;
+
+                response.forEach(function(data){
+                counter ++ ;
+                trHTML +=
+                          '<tr><td class="text-center">'
+                          + counter
+                          + '</td><td class="text-center">'
+                          + data.regNo
+                          + '</td><td>'
+                          + data.name
+                          + '</td><td class="text-center">'
+                          + data.paymentTxnId
+                          + '</td><td class="text-center">'
+                          + data.upi_ref_number
+                          + '</td><td class="text-center">'
+                          + data.fee
+                          + '</td><td class="text-center">'
+                          + '<input type="checkbox" name="studPaymentProcessCheck" class="studPaymentProcessCheck">'
+
+                          + '</td></tr>';
+                })
+                $('#tbody').append(trHTML);
+                $('#studListWithPayDetails').show();
+
+              }
+          },
+          error: function(err){
+            alert("Error: Something went wrong.");
+          }
+      });
+      }
+
+  });
+
+  $('#checkAll').on('click', function(){
+        if(this.checked){
+            $('.studPaymentProcessCheck').each(function(){
+                this.checked = true;
+            });
+        }else{
+             $('.studPaymentProcessCheck').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+
+    $('.studPaymentProcessCheck').on('click',function(){
+        if($('.studPaymentProcessCheck:checked').length == $('.studPaymentProcessCheck').length){
+            $('#checkAll').prop('checked',true);
+        }else{
+            $('#checkAll').prop('checked',false);
+        }
+    });
+
+
+
+
+    var studentsRegNoList;
+
+
+    function createStudentsRegistrationList(){
+    studentsRegNoList=[];
+    $("#studListTbl input[type=checkbox]:checked").each(function () {
+        var row = $(this).closest("tr")[0];
+      //  alert(row.cells[1].innerHTML);
+        studentsRegNoList.push(row.cells[1].innerHTML);
+
+    });
+    console.log("Iside function:" + studentsRegNoList );
+    }
+
+    $('#verify-button').on('click', function(e){
+        e.preventDefault();
+        createStudentsRegistrationList();
+        console.log("students reg no "+ studentsRegNoList);
+
+        $.ajax({
+            url:"/approve-payment-by-organiser",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({studentsRegNoList:studentsRegNoList }),
+            success: function(response){
+              alert(response);
+              location.reload(true);
+            },
+            error: function(err){
+              alert("Error In Approving Payment Details");
+            }
+        });
+    });
+
+    $('#paymentApprovedStudentsList').hide();
+    $('#final-approve-search-btn').on('click', function(e){
+        e.preventDefault();
+        $('.errMsgDiv').hide();
+        $('#paymentApprovedStudentsList').hide();
+
+        $('#finalApprovedPaymentForm').valid({
+          rules : {
+                fromDate : {
+                    required : true,
+                    date : true,
+                    dateITA : true,
+                    dateLessThan : '#toDate'
+                },
+                toDate : {
+                    required : true,
+                    date : true,
+                    dateITA : true,
+                    dateGreaterThan : "#fromDate"
+                }
+              }
+        });
+
+        let fromDate = new Date($('#fromDate').val());
+        fromDate.setHours(0, 0, 0, 0)    ;
+        let toDate = new Date($('#toDate').val());
+        toDate.setHours(23, 59, 59, 0)
+        form = $("#finalApprovedPaymentForm");
+        if(form.valid()==true){
+        $.ajax({
+            url:"/approved-payment-details/"+ fromDate +"/" + toDate ,
+            method: "GET",
+            contentType: "application/json",
+            beforeSend: function(){
+                $('.loading-page-img-div').show();
+            },
+            complete: function(){
+              $('.loading-page-img-div').hide();
+            },
+            success: function(response){
+              $('#tbody').empty();
+            if(response == 'No transaction found' ){
+                  $('#paymentApprovedStudentsList').hide();
+                  $('.loading-page-img-div').hide();
+                  $('.errMsgTxt').html(response);
+                  $('.errMsgDiv').show();
+
+            }else{
+                $('.errMsgDiv').hide();
+                var trHTML = '';
+                var counter = 0;
+                let total=0;
+                  response.forEach(function(data){
+                  counter ++ ;
+                  total = total + parseInt(data.regFee);
+                  trHTML +=
+                            '<tr><td class="text-center text-nowrap">'
+                            + counter
+                            + '</td><td class="text-center text-nowrap">'
+                            + data.regNo
+                            + '</td><td class="text-nowrap">'
+                            + data.studentName
+                            + '</td><td>'
+                            + data.teamMember
+                            + '</td><td class="text-nowrap">'
+                            + data.organisation
+                            + '</td><td class="text-center text-nowrap">'
+                            + data.paymentId
+                            + '</td><td class="text-center text-nowrap">'
+                            + data.regFee
+
+                            + '</td><td class="text-center text-nowrap">'
+                            + data.approvedDate
+                            + '</td><td class="text-nowrap">'
+                            + data.approver
+
+                            + '</td></tr>';
+                  })
+                  $('#tbody').append(trHTML);
+                  $('#paymentApprovedStudentsList').show();
+                  $('#totalAmount').html( '<strong>Total Amount: </strong>' + total );
+                }
+            },
+            error: function(err){
+              alert("Error: Something went wrong.");
+            }
+        });
+        }
+    });
+
+
+    $('#coordinatorsPaymentDetailList').hide();
+    $('.loading-page-img-div').hide();
+    $('#coordinators-payment-search-btn').on('click', function(e){
+        e.preventDefault();
+          $('.errMsgDiv').hide();
+        $('#coordinatorsPaymentForm').valid({
+          rules : {
+                fromDate : {
+                    required : true,
+                    date : true,
+                    dateITA : true,
+                    dateLessThan : '#toDate'
+                },
+                toDate : {
+                    required : true,
+                    date : true,
+                    dateITA : true,
+                    dateGreaterThan : "#fromDate"
+                },
+              }
+        });
+        let fromDate = new Date($('#fromDate').val());
+        fromDate.setHours(0, 0, 0, 0)    ;
+        let toDate = new Date($('#toDate').val());
+        toDate.setHours(23, 59, 59, 0)
+        let coordinatorId = $('select#coordinatorddl').children('option:selected').val();
+        let form = $('#coordinatorsPaymentForm');
+        if(form.valid()==true){
+        $.ajax({
+            url:"/get-coordinators-payment/"+ fromDate +"/" + toDate + "/"+ coordinatorId ,
+            method: "GET",
+            contentType: "application/json",
+            beforeSend: function(){
+              $('.errMsgDiv').hide();
+              $('.loading-page-img-div').show();
+            },
+            complete: function(){
+                $('.loading-page-img-div').hide();
+            },
+            success: function(response){
+              $('#tbody').empty();
+            if(response == 'No transaction found' ){
+                  $('#coordinatorsPaymentDetailList').hide();
+                  $('.errMsgTxt').html(response);
+                  $('.errMsgDiv').show();
+                  $('.loading-page-img-div').show();
+
+            }else{
+                $('.errMsgDiv').hide();
+                var trHTML = '';
+                var counter = 0;
+                let total= 0;
+                  response.forEach(function(data){
+                  counter ++ ;
+                  total = total + data.amount;
+                  trHTML +=
+                            '<tr><td class="text-center">'
+                            + counter
+                            + '</td><td class="text-center">'
+                            + data.coordinatorPaymentId
+                            + '</td><td >'
+                            + data.paymentMode
+                            + '</td><td>'
+                            + data.referenceNo
+                            + '</td><td class="text-center">'
+                            + data.paymentDate
+                            + '</td><td class="text-center">'
+                            + data.studentRegNo
+                            + '</td><td class="text-center">'
+                            + data.amount
+                            + '</td></tr>';
+                  })
+                  $('#tbody').append(trHTML);
+                  $('#totalAmount').html( '<strong>Total Amount: </strong>' + total );
+                  $('#coordinatorsPaymentDetailList').show();
+                }
+            },
+            error: function(err){
+              alert("Error: Something went wrong.");
+            }
+        });
+        }
+
+    });
+
+
+
+    $('.students-list-with-participated-events').hide();
+    $('.loading-page-img-div').hide();
+    $('#search-student-event-participation-button').on('click', function(e){
+      e.preventDefault();
+      let eventId = $('select#eventIdDdl').children('option:selected').val();
+      let studentGroupDdl = $('select#studentGroupDdl').children('option:selected').val();
+      let feeStatusDdl = $('select#feeStatusDdl').children('option:selected').val();
+
+      $.ajax({
+        url:"/get-event-participation-and-student-list/" + eventId + "/" + studentGroupDdl + "/"+ feeStatusDdl,
+        method: "GET",
+        contentType: "application/json",
+        timeout: 0,
+        beforeSend: function(){
+          $('.students-list-with-participated-events').hide();
+          $('.errMsgDiv').hide();
+          $('.loading-page-img-div').show();
+        },
+        complete: function(){
+            $('.loading-page-img-div').hide();
+        },
+        success: function(response){
+          $('#tbody').empty();
+        if(response.length==0){
+
+              $('.students-list-with-participated-events').hide();
+              $('.errMsgTxt').html("No students found under selected filters.");
+              $('.errMsgDiv').show();
+        }
+        else{
+            $('.errMsgDiv').hide();
+            var trHTML = '';
+            var counter = 0;
+            let total= 0;
+              response.forEach(function(data){
+              counter ++ ;
+              trHTML +=
+                        '<tr><td class="text-center">'
+                        + counter
+                        + '</td><td class="text-center">'
+                        + data.regNo
+                        + '</td><td >'
+                        + data.name
+                        + '</td><td>'
+                        + data.eventName
+                        + '</td><td>'
+                        + data.organisation
+                        + '</td><td>'
+                        + data.group
+                        + '</td><td>'
+                        + data.payMode
+                        + '</td><td>'
+                        + data.payStatus
+                        + '</td><tr>'
+
+              })
+              $('#tbody').append(trHTML);
+              $('.students-list-with-participated-events').show();
+
+
+            }
+
+        },
+        error: function(err){
+          alert("Error Occurred: Reason is "+err.statusText+" exception");
+        }
+      })
+    })
+
+
+
+    function increaseNetPayableAmount(){
+      let netPayableAmount = $('#netPayableAmount').val();
+      let totalAmount = $('#totalAmount').val();
+      netPayableAmount = parseInt(netPayableAmount) + 150;
+      totalAmount = parseInt(totalAmount) + 150;
+
+      $('#netPayableAmount').val(netPayableAmount)  ;
+      $('#totalAmount').val(totalAmount);
+    }
+    function decreaseNetPayableAmount(){
+      let netPayableAmount = $('#netPayableAmount').val();
+      netPayableAmount = parseInt(netPayableAmount) - 150;
+      let totalAmount = $('#totalAmount').val();
+      totalAmount = parseInt(totalAmount) - 150;
+      $('#netPayableAmount').val(netPayableAmount)  ;
+        $('#totalAmount').val(totalAmount);
+    }
+    $(".carnivalTshirtSizediv").hide();
+    $('#carnival_tshirt_yes_btn').on('click', function(){
+        let tshirtChoice = confirm("Are you sure want to purchase carnival Tshirt?");
+        if(tshirtChoice==true){
+          $(".carnivalTshirtSizediv").show();
+          increaseNetPayableAmount()
+        }else{
+            $("#carnival_tshirt_no_btn").prop("checked", true);
+        }
+    })
+
+    $('#carnival_tshirt_no_btn').on('click', function(){
+        $(".carnivalTshirtSizediv").hide();
+        decreaseNetPayableAmount();
+
+    })
+    //new student registration page
+    $("#studentclass").on('change', function(){
+        let participatingGroup;
+        let studentClass = parseInt(this.value);
+        if(studentClass<=5)
+          participatingGroup = "JUNIOR GROUP";
+        else if(studentClass >= 6 && studentClass <=9)
+          participatingGroup = "SENIOR GROUP";
+        else
+          participatingGroup = "SUPER SENIOR GROUP";
+        $("#participationgGroup").val(participatingGroup);
+        getEventList(participatingGroup)
+    })
+
+    function getEventList(participatingGroup){
+
+    $.ajax({
+      url:"/carnival-event-list/" + participatingGroup,
+      method: "GET",
+      contentType: "application/json",
+      success: function(response){
+      let individualEvents = [];
+      let groupEvents = []
+      $('#IndividualEventList').empty();
+      $('#GroupEventList').empty();
+
+      response.forEach(function(event){
+        if(event.event_category=="INDIVIDUAL"){
+          $('#IndividualEventList').append('<option value="' + event.event_id + '">' + event.event_name + '</option>')
+        }else{
+          $('#GroupEventList').append('<option value="' + event.event_id + '">' + event.event_name + '</option>')
+        }
+      })
+
+      },
+      error: function(err){
+        alert("Error: Error in fetching event list.");
+      }
+    })
+    }
+    $('.table').on('click', '.userverificationcapprovebtn', function(e){
+      let approvername = $('.loogedIdusername').text();
+      let rowElement = $(this).closest('tr');
+      let name = rowElement.find('.fullName').text();
+      let Id = rowElement.find('.id').text();
+      if(confirm("DO YOU WANT TO APPROVE THE ACCOUNT OF"+ name +"?")==true){
+      $.ajax({
+        url:"/approve-user/" + Id,
+        method: "PUT",
+        contentType: "application/json",
+        data:JSON.stringify({fullName:approvername}),
+        success: function(response){
+        alert(name + " "+ response);
+        location.reload(true);
+        },
+        error: function(err){
+          alert("Error: Something went wrong! Failed to update details.");
+        }
+        })
+      }else{
+        return false;
+      }
+    })
+
+    //coordinator wise payment list
+    $('#CoordinatorStudentListTbl').hide();
+    $('#searchStudentUnderCoordinator').on('click', function(e){
+    $('#CoordinatorStudentListTbl').hide();
+      e.preventDefault();
+      $('.coordinatorWiseStudentListFrm').valid({
+        rules : {
+              coordinatorDdlList : {
+                  required : true,
+              }
+            },
+            messages:{
+              coordinatorDdlList:{
+                required: 'Please select coordinator',
+              }
+            }
+      });
+
+      $('#coordinatorsStudentList').hide();
+
+      let coordinatorId = $('select#coordinatorDdlList').children('option:selected').val();
+      if(coordinatorId>0){
+
+        $.ajax({
+          url:"/find-coordinator-wise-participants-list/"+coordinatorId,
+          method:"GET",
+          data:JSON.stringify({Id:coordinatorId}),
+          beforesend:function(){
+            $('.errMsgDiv').hide();
+            $('.loading-page-img-div').show();
+          },
+          complete:function(){
+            $('.loading-page-img-div').hide();
+          },
+          success:function(response){
+          if(response=="No students found"){
+            $('#CoordinatorStudentListTbl').hide();
+            $('.errMsgTxt').html("No student registered through the coordinator.");
+            $('.errMsgDiv').show();
+          }else{
+            $('#tbody').empty();
+            $('.errMsgDiv').hide();
+            var trHTML = '';
+            var counter = 0;
+            let total =0;
+            let finalApprovedStudentCount = 0;
+            response.forEach(function(data){
+            total = total + parseInt(data.registrationFee);
+            if(data.regFeeCurrentStatus=="FINAL APPROVED BY ORGANISER"){
+              finalApprovedStudentCount = finalApprovedStudentCount + 1;
+            }
+            counter ++ ;
+            trHTML +=
+                      '<tr><td class="text-center">'
+                      + counter
+                      + '</td><td class="text-center">'
+                      + data.registrationNo
+                      + '</td><td>'
+                      + data.name
+                      + '</td><td class="text-center">'
+                      + data.studentClass
+                      + '</td><td class="text-center">'
+                      + data.organistion
+                      + '</td><td class="text-center">'
+                      + data.paymentMode
+                      + '</td><td class="text-center">'
+                      + data.registrationFee
+                      + '</td><td class="text-center">'
+                      + data.regFeeCurrentStatus
+                      + '</td></tr>';
+            })
+
+            $('#tbody').append(trHTML);
+            $('#totalAmnt').html("<strong>Total amount received by organizer=</strong>" +"<strong>"+ total +"</strong>" );
+
+            if(finalApprovedStudentCount<=100){
+              total = (0.1*total);
+              $('#commissionAmount').html("<strong>Incentive Amount(10% of total amount)=</strong>" +"<strong>"+ total +"</strong>" );
+            }else if(finalApprovedStudentCount>100 && finalApprovedStudentCount<=200){
+              total = (0.15*total);
+              $('#commissionAmount').html("<strong>Incentive Amount(15% of total amount)=</strong>" +"<strong>"+ total +"</strong>" );
+            }else{
+              total = (0.20*total);
+              $('#commissionAmount').html("<strong>Incentive amount(20% of total amount)=</strong>" +"<strong>"+ total +"</strong>" );
+            }
+              $('#CoordinatorStudentListTbl').show();
+          }
+
+          },
+          error:function(err){
+            alert("Error:Something went wrong:" + err);
+          }
+
+        })
+      }else{
+        return false;
+      }
+
+    })
+
+});
