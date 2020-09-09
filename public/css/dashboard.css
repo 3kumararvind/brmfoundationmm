@@ -1,0 +1,49 @@
+.dashboard-top-header{background-color: #12454c;}
+.sidebar {
+  margin: 10;
+  padding: 10PX;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  overflow: auto;
+
+}
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 5px;
+  margin-top:5px;
+  margin-right:20px;
+  margin-bottom:5px;
+  margin-left: 10px ;
+
+  text-decoration: none;
+}
+
+#coordinator-incentive-amnt-alert{
+  margin: 0 auto;
+  max-width: 1280px;
+}
+@media screen and (max-width: 700px) {
+  .dashboard-top-header{
+    text-align: center;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .dashboard-top-header{
+    text-align: center;
+  }
+
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}

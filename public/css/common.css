@@ -1,0 +1,210 @@
+body{margin:0px;padding:0px; }
+/*--background: linear-gradient(45deg, rgba(243, 242, 241, 0.49), #e9e9e9fc)!important; */
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: ;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+img{width:100%;}
+.loading-page-img-div{text-align: center;}
+img.animated-gif{max-width: 130px;height:auto;}
+.container-fluid{ padding-top: 20px;}
+.dropdown{position:inline !important;}
+.header-section .show{display: inline !important;}
+.header-section .dropdown .dropdown-menu{width:146px; }
+.header-section .dropdown .dropdown-menu a{padding: 15px 10px;}
+
+.navbar, #top-nav-background{background: linear-gradient(45deg,#005bea  0%, #00c6fb  100%)!important;}
+a.navbar-brand{color:#ffffff;font-size: 35px !important; font-weight: bold !important;}
+a.nav-link{color: #ffffff;}
+.btn{white-space:normal !important; word-wrap: break-word;}
+.navbar-toggler{border: solid 1px #ffffff;}
+
+.mandatory{color: red; font-weight: bolder;}
+.btn-toolbar {
+     margin-left: 0px;
+}
+#demo img{height: 680px;}
+.table td, th{padding:0.15rem}
+/*CSS for donate page*/
+#donor{margin: 10px; }
+#donor h1, #where-we-use h1{text-align: center;color: #000066; text-shadow: 2px 2px #fff;text-decoration:inherit;font-weight: bolder;}
+#donor .donor-text{background-color: #FA8DB5;height: 100%; border-radius: 15px;}
+#donor .donor-text p{font-size: 2.5rem;font-weight: bolder;color: #ffffff; text-transform: capitalize;text-decoration: underline;	}
+#where-we-use .card{margin: 10px;}
+card{text-align: center;}
+div.card{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+/*password reset page */
+#password-reset-div{margin: 0 auto;}
+#proceed-btn-div{margin: 0 auto;}
+/*Members */
+.team-members {margin: 5px;}
+.team-members .card{margin-bottom: 10px;}
+.team-members .card-body .card-title, h6{ color: white; text-align: center;}
+#member-image{border-radius: 50%;display: block;margin: auto;height: 150px;width: 150px;}
+.team-members .card{ border:solid 2px black;}
+
+/*Media corner page*/
+.media-news-coverage{margin: 10px;}
+.media-news-coverage img{margin-bottom: 10px;}
+
+/*carnival page*/
+.event-title{margin-left: 25px;}
+.card-group { display: -webkit-flex; display: flex; flex-wrap: wrap; }
+.card {flex: 2; border: 1px solid lightgrey;
+  display: flex;           /* new */
+  flex-direction: column;  /* new */
+}
+
+.prize-card{margin-top: 10px;margin-bottom:10px;padding: 7px;}
+.prize-card h2{text-rendering: optimizeSpeed;font-family: Aerial}
+.prize-card-header-background{background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);}
+.first-prize-background{background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);}
+
+.second-prize-background{background-image: linear-gradient(to right, #a8ff78 0%, #78ffd6 100%);}
+.third-prize-background{background-image: linear-gradient(to right, #ef3b36 0%, #ffffff 100%);}
+.prize-card-header-background-2{background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 80%);}
+.selfie-hyperlink-div{margin-top: 40px;}
+.hash-tag-text{padding: 20px;border-radius: 5px;}
+.hash-tag-text p{margin: 0px;}
+.social-share-div{margin-top: 20px; margin-bottom: 20px;text-align: center;}
+.social-share-div img{height: 60px; max-width: 80%; }
+/*
+.event-details-div{margin-bottom: 30px;}
+.event-details-div .border-info{border-width: 3px;}
+.event-details-div .card{text-align: center; margin: 10px;background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);}
+.event-details-div .card:hover{ -ms-transform: scale(1.1); /* IE 9 */
+  /*                              -webkit-transform: scale(1.1);
+                                 transform: scale(1.1); }
+.event-details-div .card img{width:160px;}
+.event-details-div .card .img-thumbnail{border-radius: 50%;} */
+.apply-btn{width:40%; margin: auto;}
+
+/*carnival login page*/
+.login-page-div{margin-bottom: 20px;}
+#isc-login-form{margin-bottom: 20px;}
+ .isc-login-head h2{font-family: 'Kaushan Script', cursive;font-size: 50px;}
+.ssisc-login-form {width: 30%; margin: 20px auto 20px auto; padding-bottom: 20px;background-color:#e6f2f5; border:solid 2px black;border-radius: 10px; }
+.login-form-img-container{display: block; text-align: center;}
+.login-form-img-container img{border-radius:50%; height: 120px; width:120px;}
+.isc-login-form input[type=text],input[type=password] {width: 100%;display:inline-block; margin: 8px 0px;padding: 8px;border: solid 1px #10a9d3; border-radius: 5px;}
+
+/* Carnival Registration page*/
+#registration-div, #add-organisation-div , #student-event-register-form-div, #add-new-team-div,{background-color:#e6f2f5; border:solid 2px black;border-radius: 10px; margin: 10px;}
+
+.form-control{border: solid 1px #10a9d3; }
+/* Payment page*/
+#PaymentNoteDiv{ margin: 0 auto;}
+#PaymentNoteDivHead{margin: 0 auto; font-style: oblique;font-variant: small-caps;font-size: 1.5rem; }
+.error {color: red;font-size: 1.2rem;}
+
+/* interschool carnival page */
+#ISC-details{background-color: white;padding: 20px; border-radius: 5px; margin-bottom: 20px;}
+#ISC-details h1 {color: #00004C; font-weight: bolder;}
+.event-details-div, .important-dates-section, .prize-div, .sponsors-section, .registration-fee-section,.important-information-section, .helpline-section{background-color: white;padding: 20px; border-radius: 5px; margin-bottom: 20px;}
+#eventsGroupWise .card{width:inherit;margin: 5px;}
+.event-details-div h1, .important-dates-section h1, .prize-div h1, .sponsors-section h1, .registration-fee-section h1, .important-information-section h1, .helpline-section h1{color: #00004C; font-weight: bolder;}
+.counterTimer{margin-top: 50px; margin-bottom: 70px; }
+#sponsor-details{position: relative;}
+#sponsor-details ul { list-style: none; }
+#sponsor-details li {float: left;margin: 0 10px;}
+#sponsor-details ul li img {width:250px;height:150px; vertical-align: bottom;  }
+
+/*make payment div*/
+.barcode-div{
+  margin: 0 auto;
+  width:50%;
+  margin-bottom: 10px;
+}
+
+.barcode-div img{border: solid red 2px; }
+.student-application-form-header{border-bottom: solid 2px black; padding-bottom: 20px; margin-bottom: 20px;}
+.student-application-form-header .header-content p{margin: 0px}
+.student-application-form-header h3{font-weight: bolder;}
+.student-application-form-header img{width:50%; margin: 10px;}
+
+
+
+/* coordinator payment page */
+.coordinator-payment-detail-div{margin: 0 auto;}
+.payment-details-body{margin: 10px;}
+
+
+/*organiser payment approve page*/
+#org-pay-approve-div, #approved-payment-div, #coordinators-payment-detail-div, #isc-login-form, #register-form, #coordinator-view-participants-view, #add-event-form, #add-organisation-form,#update-academic-div,#studentparent-form-div, #student-event-register-form-div, #make-payment-div, #student-admit-card-div, #event-participation-detail-div, #student-credentials-div, #coordinator-wise-students-list-div, #tshirt-detail-div{margin: 0 auto;}
+#studListTbl{caption-side:top;}
+/*view students details*/
+.signatureArea{margin-bottom: 300px;}
+.passport-size-img{border:solid 1px black;width: 160px;height: 180px;margin: 0 auto;}
+.passport-size-img p{margin: 40px auto;text-align: center;}
+.signature-box{height:70px;}
+.signature-box img{max-width: 100px; max-height:100%; }
+
+
+/*css for check stats page */
+#statsDiv{margin: 0 auto;}
+/*CSS for footer**/
+
+/*footer .quickLink{background: linear-gradient(45deg,#005bea  0%, #00c6fb  100%)!important; padding: 15px 0px;}*/
+footer{background: linear-gradient(45deg, #000000f2, #171717)!important;margin-top: 20px;}
+footer .quickLink{background: linear-gradient(45deg,#005bea  0%, #00c6fb  100%)!important; padding: 15px 0px;}
+
+footer .quickLink a{display: block;font-size: 16px;color: #fcf8e3;padding: 5px;}
+footer #map{width: 100%;min-height: 200px;border: 1px solid #a96842;-webkit-box-shadow: 1px 1px 1px 1px rgba(120,43,43,1);}
+footer .copyRight{padding: 15px 0px 5px 0px; color: #ffffff; }
+#footer-text a{text-decoration: none;color: #ffffff;}
+
+@media (max-width: 767px) {
+	#demo img{height: auto;}
+	/*carnival page*/
+	.apply-btn{width:70%; margin: auto;}
+
+	/*login page*/
+	.isc-login-form{width:90%;}
+
+  /*registration page*/
+
+	footer .quickLink a{text-align: center;}
+	footer .copyRight{text-align: center;}
+  footer .quickLink .container div{margin-bottom: 20px;}
+	a.navbar-brand{font-size: 22px !important;}
+	a.navbar-brand img{width:40px !important;}
+	.isc .card .circle-image{top: -100px;}
+  #countdown{width:80%}
+  #countdown #tiles > span{
+  	width: 50px;
+  	max-width: 70px;}
+  #countdown .labels li{
+  	width: 50px;
+  	font: bold 15px 'Droid Sans', Arial, sans-serif;
+}
+	#footer-text a .developer{text-align: center;}
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print, #Print-div * {
+    visibility: visible;
+  }
+  #section-to-print,  #Print-div {
+        min-height: 297mm;
+        margin: 5px auto;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+
+  }
+}
